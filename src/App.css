@@ -5,7 +5,7 @@
     height: 47px;
     font-style: normal;
     font-weight: bold;
-    font-size: 36px;
+    font-size: 46px;
     line-height: 42px;
     letter-spacing: 0.01em;
     color: #6C63FF;
@@ -29,6 +29,36 @@
     letter-spacing: 0.01em;
     color: #6C63FF;
 }
+
+
+.Parse-Form{
+    width:50%;
+    min-width: 400px;
+    height: 386px;
+    background: #E4FAEA;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 10px;
+}
+
+.Form-Header {
+    height: 67px;
+    width:100%;
+    background: #6C63FF;
+}
+
+.Form-Header-Text {
+    height: 23px;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 20px;
+    line-height: 23px;
+    letter-spacing: 0.01em;
+    color: #FFFFFF;
+}
+
+/* Left pane styles */
+
+
 
 @tailwind components;
 
