@@ -66,7 +66,7 @@ function App() {
                   {errors.file && touched.file? <Err>{errors.file}</Err>: null}
                 </div>
               </div>
-              <button type='submit' className='p-2 bg-orange-300 rounded text-sm text-white'>Parse AMF</button>
+              <button type='submit' className='p-2 bg-orange-300 rounded text-sm text-white justify-center flex'>Parse AMF</button>
             </Form>
           )}
         </Formik>
