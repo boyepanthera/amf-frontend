@@ -5,6 +5,7 @@ import { LeftPanel } from './components/LeftPanel';
 import {Field, Form, Formik} from 'formik';
 import styled from 'styled-components';
 import * as Yup from 'yup';
+import {motion} from 'framer-motion';
 
 const Err = styled.div (
   {
@@ -32,15 +33,12 @@ function App() {
   return (
     <div className="App h-screen flex">
       <LeftPanel/>
-      <div className='w-3/5 bg-gray-200 flex justify-center'>
+      <div className='w-3/5 bg-gray-200 flex justify-center sm:w-1/2'>
         <div className='mx-auto my-auto'>
-          <div className='Form-Header'>
-            <div className='text-center p-5 text-white Form-Header-Text'>The Magic Happens Here</div>
-          </div>
           <Formik 
           initialValues = {{
             name: '',
-            file: []
+            file: {}
           }} 
           validationSchema = {UploadSchema}
           onSubmit = {
@@ -50,24 +48,38 @@ function App() {
           }
         >
           {({errors, touched}) => (
-            <Form className='Parse-Form p-10'>
+            <motion.div 
+            animate={{
+              x:0,
+            }}
+            transition={{duration:5}}
+            
+            >
+               <Form className='Parse-Form rounded-b-lg '>
+              <div className='Form-Header'>
+                <h4 className='Form-Header-Text p-5 justify-center'>The magic happens here!</h4>
+              </div>
+              <div className='p-8'>
               <div className='block'>
                 <label htmlFor='name'>Name</label>
                 <Field name='name' className='bg-white focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-4 block w-full appearance-none leading-normal my-4' placeholder='Let me know your name'/>
                 {errors.name && touched.name? <Err>{errors.name}</Err>: null}
               </div>
-              <div className='border-dashed border-2 my-4 p-5 '>
+              {/* <section className='max-h-10  border-dashed border-blue-200 border-2 my-4'>
                 <div  className='' {...getRootProps({className:'dropzone'})}>
-                  <input name='file' type='file' className='my-5' {...getInputProps()} />
-                  <p className='text-center text-blue-300'>Drag and drop files or click to browse</p>
+                  <input name='file' type='file' {...getInputProps()} />
                   <aside>
+                  <p className='text-center text-blue-300 p-4'>Drag and drop files or click to browse</p>
                     <ul>{files}</ul>
                   </aside>
                   {errors.file && touched.file? <Err>{errors.file}</Err>: null}
                 </div>
-              </div>
+              </section> */}
               <button type='submit' className='p-2 bg-orange-300 rounded text-sm text-white justify-center flex'>Parse AMF</button>
-            </Form>
+              </div>
+            </Form>            
+            </motion.div>
+           
           )}
         </Formik>
         </div>
