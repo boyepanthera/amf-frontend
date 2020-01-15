@@ -4,7 +4,6 @@ import { LeftPanel } from './components/LeftPanel';
 import {Field, Form, Formik} from 'formik';
 import styled from 'styled-components';
 import * as Yup from 'yup';
-import {useDropzone} from 'react-dropzone';
 
 const Err = styled.div (
   {
@@ -22,15 +21,6 @@ const UploadSchema = Yup.object().shape({
 });
 
 function App() {
-  const [getRootProps, getInputProps, acceptedFiles] = useDropzone ()
-  const files = acceptedFiles.map(
-    file =>(
-      <li key={file.path}>
-        {file.path} - {file.size} bytes
-      </li>
-    )
-  )
-
   return (
     <div className="App h-screen flex">
       <LeftPanel/>
@@ -57,29 +47,16 @@ function App() {
                 <Field name='name' className='bg-white focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-4 block w-full appearance-none leading-normal my-4' placeholder='Let me know your name'/>
                 {errors.name && touched.name? <Err>{errors.name}</Err>: null}
               </div>
-              <div  className='block' {...getRootProps({className: 'dropzone'})}>
-              <Field name='amf' type='file' className='my-5' {...getInputProps()} onChange = {event => {
+              <div  className='block'>
+              <Field name='amf' type='file' className='my-5'  onChange = {event => {
                 setFieldValue('files', event.currentTarget.files[0])
               }} />
-              <p className='text-blue-200'>Drag and drop file or click to browse</p>
               {errors.file && touched.file? <Err>{errors.file}</Err>: null}
               </div>
-              <aside>
-                <h4>Files</h4>
-                <ul>{files}</ul>
-              </aside>
               <button className='p-2 bg-orange-300 rounded text-sm text-white'>Parse AMF</button>
             </Form>
           )}
         </Formik>
-        <div {...getRootProps({className: 'dropzone'})}>
-          <input {...getInputProps()} />
-          <p>Drag files here...</p>
-        </div>
-        <aside>
-          <h4>Files:</h4>
-          {/* <ul>{files}</ul> */}
-        </aside>
         </div>
       </div>
     </div>
