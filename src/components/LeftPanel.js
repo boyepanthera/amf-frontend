@@ -3,7 +3,7 @@ import Introducer from '../utils/introducer.svg';
 
 export const LeftPanel  = ()=> (
     <div className='w-2/5 bg-orange-300'>
-      <div className='p-10 Logo text-2xl'>Parser.io</div>
+      <div className='p-10 Logo text-2xl'>AMF Parser</div>
       <div className='mx-auto my-24 flex justify-center'>
         <img src={Introducer} alt='Explainer Standing with Direction for app use'/>
       </div>

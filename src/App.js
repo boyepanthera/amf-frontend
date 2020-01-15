@@ -1,5 +1,6 @@
 import React from 'react';
 import './output.css';
+import {useDropzone} from 'react-dropzone';
 import { LeftPanel } from './components/LeftPanel';
 import {Field, Form, Formik} from 'formik';
 import styled from 'styled-components';
@@ -21,6 +22,13 @@ const UploadSchema = Yup.object().shape({
 });
 
 function App() {
+  const {acceptedFiles, getRootProps, getInputProps} = useDropzone();
+  const files = acceptedFiles.map(file => (
+    <li key={file.path} className='small'>
+      {file.path} - {file.size} bytes
+    </li>
+  ));
+
   return (
     <div className="App h-screen flex">
       <LeftPanel/>
@@ -32,7 +40,7 @@ function App() {
           <Formik 
           initialValues = {{
             name: '',
-            files: []
+            file: []
           }} 
           validationSchema = {UploadSchema}
           onSubmit = {
@@ -41,19 +49,24 @@ function App() {
             )
           }
         >
-          {({errors, touched, setFieldValue}) => (
+          {({errors, touched}) => (
             <Form className='Parse-Form p-10'>
               <div className='block'>
+                <label htmlFor='name'>Name</label>
                 <Field name='name' className='bg-white focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-4 block w-full appearance-none leading-normal my-4' placeholder='Let me know your name'/>
                 {errors.name && touched.name? <Err>{errors.name}</Err>: null}
               </div>
-              <div  className='block'>
-              <Field name='amf' type='file' className='my-5'  onChange = {event => {
-                setFieldValue('files', event.currentTarget.files[0])
-              }} />
-              {errors.file && touched.file? <Err>{errors.file}</Err>: null}
+              <div className='border-dashed border-2 my-4 p-5 '>
+                <div  className='' {...getRootProps({className:'dropzone'})}>
+                  <input name='file' type='file' className='my-5' {...getInputProps()} />
+                  <p className='text-center text-blue-300'>Drag and drop files or click to browse</p>
+                  <aside>
+                    <ul>{files}</ul>
+                  </aside>
+                  {errors.file && touched.file? <Err>{errors.file}</Err>: null}
+                </div>
               </div>
-              <button className='p-2 bg-orange-300 rounded text-sm text-white'>Parse AMF</button>
+              <button type='submit' className='p-2 bg-orange-300 rounded text-sm text-white'>Parse AMF</button>
             </Form>
           )}
         </Formik>
