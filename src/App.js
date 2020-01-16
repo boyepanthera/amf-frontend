@@ -25,7 +25,7 @@ const UploadSchema = Yup.object().shape({
 function App() {
   const {acceptedFiles, getRootProps, getInputProps} = useDropzone();
   const files = acceptedFiles.map(file => (
-    <li key={file.path} className='small'>
+    <li key={file.path} className='text-xs'>
       {file.path} - {file.size} bytes
     </li>
   ));
