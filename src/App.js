@@ -31,9 +31,11 @@ function App() {
   ));
 
   return (
-    <div className="App h-screen flex">
-      <LeftPanel/>
-      <div className='w-3/5 bg-gray-200 flex justify-center sm:w-1/2'>
+    <div className="App h-screen md:flex">
+      <div className='w-1/5 bg-orange-300 md:w-1/2 md:flex-shrink-0'>
+        <LeftPanel  />
+      </div>
+      <div className='w-4/5 bg-gray-200 flex justify-center'>
         <div className='mx-auto my-auto'>
           <Formik 
           initialValues = {{
