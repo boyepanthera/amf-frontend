@@ -37,8 +37,8 @@ function App() {
         <div className='mx-auto my-auto'>
           <Formik 
           initialValues = {{
-            name: '',
-            file: {}
+            name: '', email:'',
+            file: {},
           }} 
           validationSchema = {UploadSchema}
           onSubmit = {
@@ -47,13 +47,12 @@ function App() {
             )
           }
         >
-          {({errors, touched}) => (
+          {({errors, touched, setFieldValue}) => (
             <motion.div 
             animate={{
               x:0,
             }}
             transition={{duration:5}}
-            
             >
                <Form className='Parse-Form rounded-b-lg '>
               <div className='Form-Header'>
@@ -65,21 +64,29 @@ function App() {
                 <Field name='name' className='bg-white focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-4 block w-full appearance-none leading-normal my-4' placeholder='Let me know your name'/>
                 {errors.name && touched.name? <Err>{errors.name}</Err>: null}
               </div>
-              {/* <section className='max-h-10  border-dashed border-blue-200 border-2 my-4'>
+              <div className='block'>
+                <label htmlFor='email'>Email</label>
+                <Field name='email' type='email' className='bg-white focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-4 block w-full appearance-none leading-normal my-4 btn' placeholder='Your email goes here...'/>
+                {errors.email && touched.email? <Err>{errors.email}</Err>: null}
+              </div>
+              <div>
+              <section className='max-h-10  border-dashed border-blue-200 border-2 my-4'>
                 <div  className='' {...getRootProps({className:'dropzone'})}>
-                  <input name='file' type='file' {...getInputProps()} />
+                  <input name='file' type='file' {...getInputProps()} onChange={(e)=>(setFieldValue('file' ,  e.target.files[0])) } />
                   <aside>
                   <p className='text-center text-blue-300 p-4'>Drag and drop files or click to browse</p>
-                    <ul>{files}</ul>
                   </aside>
                   {errors.file && touched.file? <Err>{errors.file}</Err>: null}
                 </div>
-              </section> */}
-              <button type='submit' className='p-2 bg-orange-300 rounded text-sm text-white justify-center flex'>Parse AMF</button>
+              </section>
+                <ul>{files}</ul>
+              </div>
+              <div>
+              <button type='submit' className='btn-sm-fincon'>Parse AMF</button>
+              </div>
               </div>
             </Form>            
             </motion.div>
-           
           )}
         </Formik>
         </div>

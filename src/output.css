@@ -652,7 +652,23 @@ video {
   color: #FFFFFF;
 }
 
-/* Left pane styles */
+.btn {
+  border-radius: 0.25rem;
+  background-color: #feb2b2;
+  padding: 0.5rem;
+  color: #fff;
+}
+
+.btn-sm-fincon {
+  border-radius: 0.25rem;
+  background-color: #6b46c1;
+  color: #fff;
+  padding: 0.5rem;
+}
+
+.btn-sm-fincon:hover {
+  background-color: #44337a
+}
 
 .container {
   width: 100%;
@@ -54489,3 +54505,4 @@ video {
     z-index: auto;
   }
 }
+

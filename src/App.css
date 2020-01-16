@@ -53,10 +53,21 @@
     color: #FFFFFF;
 }
 
-/* Left pane styles */
+.btn {
+    @apply rounded bg-red-300 p-2 text-white;
+  }
+
+.btn-sm-fincon {
+    @apply rounded bg-purple-700 text-white p-2;
+}
+
+.btn-sm-fincon:hover {
+    @apply bg-purple-900
+}
 
 
 
 @tailwind components;
 
 @tailwind utilities;
+
