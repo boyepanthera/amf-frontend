@@ -1,12 +1,21 @@
 import React from 'react';
 import Introducer from '../utils/introducer.svg';
+import {motion} from 'framer-motion';
 
 export const LeftPanel  = ()=> (
     <div className='w-2/5 bg-orange-300 sm:w-1/2'>
       <div className='p-10 Logo text-2xl'>AMF Parser</div>
-      <div className='mx-auto my-24 flex justify-center'>
-        <img src={Introducer} alt='Explainer Standing with Direction for app use'/>
-      </div>
+      <motion.div 
+      animate={{ scale: 0.5, rotate: 180, opacity: 0.5 }}
+      transition={{
+        yoyo: Infinity,
+        duration: 2,
+        ease: "easeInOut"
+        }}>
+        <div className='mx-auto my-24 flex justify-center'>
+          <img src={Introducer} alt='Explainer Standing with Direction for app use'/>
+        </div>
+      </motion.div>
       <div className='justify-center flex'>
           <div className='item-1 text-3xl Intro-Text'>In One Click.</div>
       </div>
