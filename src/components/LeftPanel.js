@@ -3,12 +3,11 @@ import Introducer from '../utils/introducer.svg';
 import {motion} from 'framer-motion';
 
 export const LeftPanel  = ()=>{
-  const [hovered, setHovered] = useState(false)
+  const [hovered, setHovered] = useState(true);
 
   return (
     <div>
       <div className='p-10 Logo text-2xl'>AMF Parser</div>
-     
         <div className='mx-auto my-24 flex justify-center md:flex-shrink-0'>
           <img filter="url(#blur)"
         onMouseEnter={() => setHovered(true)}
@@ -20,7 +19,6 @@ export const LeftPanel  = ()=>{
         />
       </filter>
         </div>
-    
       <div className='justify-center flex'>
           <div className='item-1 text-3xl Intro-Text'>In One Click.</div>
       </div>

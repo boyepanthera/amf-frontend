@@ -26,7 +26,7 @@ function App() {
   const {acceptedFiles, getRootProps, getInputProps} = useDropzone();
   const files = acceptedFiles.map(file => (
     <li key={file.path} className='text-xs'>
-      {file.path} - {file.size} bytes
+      {file.path} - {file.size/1000} kb
     </li>
   ));
 
@@ -64,26 +64,26 @@ function App() {
               <div className='block'>
                 <label className='text-sm' htmlFor='name'>Name</label>
                 <Field name='name' className='bg-white focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-4 block w-full appearance-none leading-normal mb-2' placeholder='Let me know your name'/>
-                {errors.name && touched.name? <Err>{errors.name}</Err>: null}
+                {errors.name && touched.name? <Err className='text-sm'>{errors.name}</Err>: null}
               </div>
               <div className='block'>
                 <label className='text-sm' htmlFor='email'>Email</label>
                 <Field name='email' type='email' className='bg-white focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-4 block w-full appearance-none leading-normal mb-2 btn' placeholder='Your email goes here...'/>
-                {errors.email && touched.email? <Err>{errors.email}</Err>: null}
+                {errors.email && touched.email? <Err className='text-sm'>{errors.email}</Err>: null}
               </div>
               <div>
-              <section className='max-h-10  border-dashed border-blue-200 border-2 '>
+              <section className='max-h-10  border-dashed border-blue-200 border-2 mt-6'>
                 <div  className='' {...getRootProps({className:'dropzone'})}>
                   <input name='file' type='file' onChange={(e)=>(setFieldValue('file' ,  e.target.files[0])) } {...getInputProps()} />
                   <aside>
                   <p className='text-center text-blue-300 p-4'>Drag and drop files or click to browse</p>
                   </aside>
-                  {errors.file && touched.file? <Err>{errors.file}</Err>: null}
+                  {errors.file && touched.file? <Err className='text sm'>{errors.file}</Err>: null}
                 </div>
               </section>
                 <ul>{files}</ul>
               </div>
-              <div className='my-4 justify-center flex'>
+              <div className='mt-8 justify-center flex h-10'>
               <button type='submit' className='btn-sm-fincon'>Parse AMF</button>
               </div>
               </div>
