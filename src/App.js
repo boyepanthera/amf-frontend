@@ -6,6 +6,7 @@ import {Field, Form, Formik} from 'formik';
 import styled from 'styled-components';
 import * as Yup from 'yup';
 import {motion} from 'framer-motion';
+import axios from 'axios';
 
 const Err = styled.div (
   {
@@ -29,7 +30,13 @@ function App() {
       {file.path} - {file.size/1000} kb
     </li>
   ));
-
+const handleSubmit = (values) => {
+    console.log(values)
+    const headers = {"Content-Type":"multipart/formdata"}
+    axios.post ('http://localhost:5000/amf' , values, {headers})
+    .then(response=>console.log(response.data))
+}
+  
   return (
     <div className="App h-screen md:flex">
       <div className='w-1/5 bg-orange-300 md:w-1/2 md:flex-shrink-0'>
@@ -43,11 +50,7 @@ function App() {
             file: {},
           }} 
           validationSchema = {UploadSchema}
-          onSubmit = {
-              values => (
-                console.log(values)
-            )
-          }
+          onSubmit = { handleSubmit }
         >
           {({errors, touched, setFieldValue}) => (
             <motion.div 
