@@ -1,12 +1,11 @@
 import React from 'react';
 import './output.css';
 import {useDropzone} from 'react-dropzone';
-import { LeftPanel } from './components/LeftPanel';
+import {LeftPanel} from './components/LeftPanel';
 import {Field, Form, Formik} from 'formik';
 import styled from 'styled-components';
 import * as Yup from 'yup';
-import {motion} from 'framer-motion';
-import axios from 'axios';
+// import axios from 'axios';
 
 const Err = styled.div (
   {
@@ -30,12 +29,9 @@ function App() {
       {file.path} - {file.size/1000} kb
     </li>
   ));
-const handleSubmit = (values) => {
+  const handleSubmit = (values) => {
     console.log(values)
-    const headers = {"Content-Type":"multipart/formdata"}
-    axios.post ('http://localhost:5000/amf' , values, {headers})
-    .then(response=>console.log(response.data))
-}
+  }
   
   return (
     <div className="App h-screen md:flex">
@@ -53,12 +49,6 @@ const handleSubmit = (values) => {
           onSubmit = { handleSubmit }
         >
           {({errors, touched, setFieldValue}) => (
-            <motion.div 
-            animate={{
-              x:0,
-            }}
-            transition={{duration:5}}
-            >
                <Form className='Parse-Form rounded-b-lg '>
               <div className='Form-Header'>
                 <h4 className='Form-Header-Text p-5 justify-center'>The magic happens here!</h4>
@@ -91,7 +81,6 @@ const handleSubmit = (values) => {
               </div>
               </div>
             </Form>            
-            </motion.div>
           )}
         </Formik>
         </div>
