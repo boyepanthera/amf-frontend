@@ -67,7 +67,7 @@ function App() {
               <div>
               <section className='max-h-10  border-dashed border-blue-200 border-2 mt-6'>
                 <div  className='' {...getRootProps({className:'dropzone'})}>
-                  <input name='file' type='file' onChange={(e)=>(setFieldValue('file' ,  e.target.files[0])) } {...getInputProps()} />
+                  <input name='file' type='file' {...getInputProps({onChange: function(e){setFieldValue('file', e.currentTarget.files[0])}})} />
                   <aside>
                   <p className='text-center text-blue-300 p-4'>Drag and drop files or click to browse</p>
                   </aside>
