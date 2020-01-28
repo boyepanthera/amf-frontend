@@ -5,7 +5,7 @@ import {LeftPanel} from './components/LeftPanel';
 import {Field, Form, Formik} from 'formik';
 import styled from 'styled-components';
 import * as Yup from 'yup';
-// import axios from 'axios';
+import axios from 'axios';
 
 const Err = styled.div (
   {
@@ -18,8 +18,11 @@ const UploadSchema = Yup.object().shape({
     .min(3, 'Too Short! Name cannot be less than 3 characters')
     .max(40, 'Too Long! Name cannot be longer than 3 characters')
     .required('Required Name is required'),
-  email: Yup.string()
+  file: Yup.string()
     .required('Required, a file needs to be attached!'),
+  email: Yup.string()
+  .email('This is not a valid email')
+  .required('Email is a required field')
 });
 
 function App() {
@@ -29,8 +32,10 @@ function App() {
       {file.path} - {file.size/1000} kb
     </li>
   ));
+
   const handleSubmit = (values) => {
-    console.log(values)
+    console.log(values);
+    axios.post('http://localhost:6000/amf', {values})
   }
   
   return (
@@ -76,8 +81,8 @@ function App() {
               </section>
                 <ul>{files}</ul>
               </div>
-              <div className='mt-8 justify-center flex h-10'>
-              <button type='submit' className='btn-sm-fincon'>Parse AMF</button>
+              <div className='mt-12 justify-center flex h-10'>
+              <button type='submit' className='btn-sm-fincon'>Parse </button>
               </div>
               </div>
             </Form>            
