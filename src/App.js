@@ -35,7 +35,14 @@ function App() {
 
   const handleSubmit = (values) => {
     console.log(values);
-    axios.post('http://localhost:6000/amf', {values})
+    const {name, email, file} = values;
+    const data  = new FormData();
+    data.append('name', name);
+    data.append('email', email);
+    data.append('file', file);
+    // console.log(data);
+    axios.post('http://localhost:5003/amf', data, { headers : {"Accept": "multipart/form-data"}})
+    .then(response => console.log(response))
   }
   
   return (
@@ -73,9 +80,9 @@ function App() {
               <section className='max-h-10  border-dashed border-blue-200 border-2 mt-6'>
                 <div  className='' {...getRootProps({className:'dropzone'})}>
                   <input name='file' type='file' {...getInputProps({onChange: function(e){setFieldValue('file', e.currentTarget.files[0])}})} />
-                  <aside>
+                  {/* <aside> */}
                   <p className='text-center text-blue-300 p-4'>Drag and drop files or click to browse</p>
-                  </aside>
+                  {/* </aside> */}
                   {errors.file && touched.file? <Err className='text sm'>{errors.file}</Err>: null}
                 </div>
               </section>
