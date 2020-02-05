@@ -62,7 +62,7 @@ function App() {
           {({errors, touched, setFieldValue}) => (
                <Form className='rounded-b-full w-11/12 bg-white pb-8 mx-auto my-24'>
               <div className='bg-purple-700  p-5'>
-                <div className='text-white text-center capitalize font-bold text-xl'>It happens here!</div>
+                <div className='text-white text-center capitalize font-bold text-2xl'>It happens here!</div>
               </div>
               <div className='px-12 py-2 my-6'>
               <div className='mb-8'>
@@ -76,7 +76,7 @@ function App() {
                 {errors.email && touched.email? <Err className='text-sm'>{errors.email}</Err>: null}
               </div>
               <div className='mb-8'>
-              <section className='border-dashed h-20 border-gray-400 border-2 mt-6'>
+              <section className='border-dashed h-20 border-purple-200 border-2 mt-6'>
                 <div  className='' {...getRootProps({className:'dropzone'})}>
                   <input name='file' className='hidden' type='file' {...getInputProps({onChange: function(e){setFieldValue('file', e.currentTarget.files[0])}})} />
                   {/* <aside> */}
