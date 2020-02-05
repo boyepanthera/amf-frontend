@@ -40,8 +40,7 @@ function App() {
     data.append('name', name);
     data.append('email', email);
     data.append('file', file);
-    // console.log(data);
-    axios.post('http://localhost:5003/amf', data, { headers : {"Accept": "multipart/form-data"}})
+    axios.post('http://localhost:5003/amf/csv', data, { headers : {"Accept": "multipart/form-data"}})
     .then(response => console.log(response))
   }
   
@@ -61,27 +60,27 @@ function App() {
           onSubmit = { handleSubmit }
         >
           {({errors, touched, setFieldValue}) => (
-               <Form className='Parse-Form rounded-b-lg '>
-              <div className='Form-Header'>
-                <h4 className='Form-Header-Text p-5 justify-center'>The magic happens here!</h4>
+               <Form className='rounded-b-full w-4/5 bg-white pb-8'>
+              <div className='bg-purple-700  p-5'>
+                <div className='text-white text-center font-bold text-lg'>The magic happens here!</div>
               </div>
-              <div className='px-8 py-2'>
-              <div className='block'>
-                <label className='text-sm' htmlFor='name'>Name</label>
-                <Field name='name' className='bg-white focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-4 block w-full appearance-none leading-normal mb-2' placeholder='Let me know your name'/>
+              <div className='px-12 py-2 my-6'>
+              <div className='mb-8'>
+                <label className='text-xs' htmlFor='name'>Name</label>
+                <Field name='name' className='bg-white focus:outline-none focus:shadow-outline border border-gray-300 rounded-xs py-2 px-4 block w-full appearance-none leading-normal mb-2' placeholder='Let me know your name'/>
                 {errors.name && touched.name? <Err className='text-sm'>{errors.name}</Err>: null}
               </div>
-              <div className='block'>
-                <label className='text-sm' htmlFor='email'>Email</label>
-                <Field name='email' type='email' className='bg-white focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-4 block w-full appearance-none leading-normal mb-2 btn' placeholder='Your email goes here...'/>
+              <div className='mb-8'>
+                <label className='text-xs' htmlFor='email'>Email</label>
+                <Field name='email' type='email' className='bg-white focus:outline-none focus:shadow-outline border border-gray-300 rounded-xs py-2 px-4 block w-full appearance-none leading-normal mb-2' placeholder='Your email goes here...'/>
                 {errors.email && touched.email? <Err className='text-sm'>{errors.email}</Err>: null}
               </div>
-              <div>
-              <section className='max-h-10  border-dashed border-blue-200 border-2 mt-6'>
+              <div className='mb-8'>
+              <section className='border-dashed h-20 border-blue-200 border-2 mt-6'>
                 <div  className='' {...getRootProps({className:'dropzone'})}>
-                  <input name='file' type='file' {...getInputProps({onChange: function(e){setFieldValue('file', e.currentTarget.files[0])}})} />
+                  <input name='file' className='hidden' type='file' {...getInputProps({onChange: function(e){setFieldValue('file', e.currentTarget.files[0])}})} />
                   {/* <aside> */}
-                  <p className='text-center text-blue-300 p-4'>Drag and drop files or click to browse</p>
+                  <p className='text-center p-4 text-blue-300'>Drag and drop files or click to browse</p>
                   {/* </aside> */}
                   {errors.file && touched.file? <Err className='text sm'>{errors.file}</Err>: null}
                 </div>
@@ -89,7 +88,7 @@ function App() {
                 <ul>{files}</ul>
               </div>
               <div className='mt-12 justify-center flex h-10'>
-              <button type='submit' className='btn-sm-fincon'>Parse </button>
+              <button type='submit' className='w-full font-bold bg-purple-800 mx-8 rounded-full hover:bg-purple-500 focus:outline-none shadow-xl text-white'>Parse </button>
               </div>
               </div>
             </Form>            
