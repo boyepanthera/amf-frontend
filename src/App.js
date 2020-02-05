@@ -46,10 +46,10 @@ function App() {
   
   return (
     <div className="App h-screen md:flex">
-      <div className='w-1/5 bg-orange-300 md:w-1/2 md:flex-shrink-0'>
+      <div className='w-2/5 bg-gray-300 '>
         <LeftPanel  />
       </div>
-      <div className='w-4/5 bg-gray-200 flex justify-center'>
+      <div className='w-3/5 bg-gray-200 flex justify-center'>
         <div className=''>
           <Formik 
           initialValues = {{
@@ -62,7 +62,7 @@ function App() {
           {({errors, touched, setFieldValue}) => (
                <Form className='rounded-b-full w-11/12 bg-white pb-8 mx-auto my-24'>
               <div className='bg-purple-700  p-5'>
-                <div className='text-white text-center capitalize font-bold text-xl'>The magic happens here!</div>
+                <div className='text-white text-center capitalize font-bold text-xl'>It happens here!</div>
               </div>
               <div className='px-12 py-2 my-6'>
               <div className='mb-8'>
@@ -88,7 +88,7 @@ function App() {
                 <ul>{files}</ul>
               </div>
               <div className='mt-12 justify-center flex h-10'>
-              <button type='submit' className='w-full font-bold bg-purple-800 mx-8 rounded-full hover:bg-purple-500 focus:outline-none shadow-xl text-white'>Parse </button>
+              <button type='submit' className='w-full font-bold bg-purple-600 mx-8 rounded-full hover:bg-purple-800 focus:outline-none shadow-xl text-white'>Parse </button>
               </div>
               </div>
             </Form>            
