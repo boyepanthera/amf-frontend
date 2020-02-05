@@ -50,7 +50,7 @@ function App() {
         <LeftPanel  />
       </div>
       <div className='w-4/5 bg-gray-200 flex justify-center'>
-        <div className='mx-auto my-auto'>
+        <div className=''>
           <Formik 
           initialValues = {{
             name: '', email:'',
@@ -60,9 +60,9 @@ function App() {
           onSubmit = { handleSubmit }
         >
           {({errors, touched, setFieldValue}) => (
-               <Form className='rounded-b-full w-4/5 bg-white pb-8'>
+               <Form className='rounded-b-full w-11/12 bg-white pb-8 mx-auto my-24'>
               <div className='bg-purple-700  p-5'>
-                <div className='text-white text-center font-bold text-lg'>The magic happens here!</div>
+                <div className='text-white text-center capitalize font-bold text-xl'>The magic happens here!</div>
               </div>
               <div className='px-12 py-2 my-6'>
               <div className='mb-8'>
@@ -76,11 +76,11 @@ function App() {
                 {errors.email && touched.email? <Err className='text-sm'>{errors.email}</Err>: null}
               </div>
               <div className='mb-8'>
-              <section className='border-dashed h-20 border-blue-200 border-2 mt-6'>
+              <section className='border-dashed h-20 border-gray-400 border-2 mt-6'>
                 <div  className='' {...getRootProps({className:'dropzone'})}>
                   <input name='file' className='hidden' type='file' {...getInputProps({onChange: function(e){setFieldValue('file', e.currentTarget.files[0])}})} />
                   {/* <aside> */}
-                  <p className='text-center p-4 text-blue-300'>Drag and drop files or click to browse</p>
+                  <p className='text-center text-sm p-4 text-blue-300'>Drag and drop files or click to browse</p>
                   {/* </aside> */}
                   {errors.file && touched.file? <Err className='text sm'>{errors.file}</Err>: null}
                 </div>
