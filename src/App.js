@@ -88,7 +88,7 @@ function App() {
                 <ul>{files}</ul>
               </div>
               <div className='mt-12 justify-center flex h-10'>
-              <button type='submit' className='w-full font-bold bg-purple-600 mx-8 rounded-full hover:bg-purple-800 focus:outline-none shadow-xl text-white'>Parse </button>
+              <button type='submit' className='w-full font-bold bg-purple-600 mx-8 rounded-full hover:bg-purple-800 focus:outline-none shadow-2xl text-white'>Parse </button>
               </div>
               </div>
             </Form>            
