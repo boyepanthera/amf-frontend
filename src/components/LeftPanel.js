@@ -2,7 +2,6 @@ import React from 'react';
 import Uploading from '../assets/uploading.svg'
 
 export const LeftPanel  = ()=>{
-  
   return (
     <div>
       <div className='p-10 text-purple-700 font-extrabold text-2xl tracking-wide uppercase'>Parser</div>

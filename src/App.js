@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import './output.css';
 import {useDropzone} from 'react-dropzone';
 import {LeftPanel} from './components/LeftPanel';
@@ -27,6 +27,8 @@ const UploadSchema = Yup.object().shape({
 
 function App() {
   const {acceptedFiles, getRootProps, getInputProps} = useDropzone();
+  let [submitted, setSubmit] = useState(false);
+  const [response, setResponse] = useState(false);
   const files = acceptedFiles.map(file => (
     <li key={file.path} className='text-xs'>
       {file.path} - {file.size/1000} kb
@@ -41,11 +43,44 @@ function App() {
     data.append('email', email);
     data.append('file', file);
     axios.post('http://localhost:5003/amf/csv', data, { headers : {"Accept": "multipart/form-data"}})
+    .then(response => {
+      console.log(response.data.downloadPath);
+      setSubmit(true)
+      setResponse(response.data.downloadPath)
+    })
+  }
+
+  const downloadFile = (event) =>{
+    console.log (event.target);
+    console.dir(event.target.innerText)
+    const filename = event.target.innerText;
+    axios.get(`http://localhost:5003/files/${filename}`)
     .then(response => console.log(response))
   }
   
-  return (
-    <div className="App h-screen md:flex">
+  if(submitted){
+    return (
+      <div className="App h-screen md:flex">
+      <div className='w-2/5 bg-gray-300 '>
+        <LeftPanel  />
+      </div>
+      <div className='w-3/5 bg-gray-200 flex justify-center'>
+        <div className='bg-white h-auto rounded-b-full w-1/3 my-40'>
+          <div className='bg-purple-700  p-5'>
+            <div className='text-white text-center capitalize font-bold text-2xl'>Voila! Parsing Done...</div>
+          </div>
+          <div className='my-20 mx-12' onClick={downloadFile}>
+            <div className='border-dashed border-2 border-purple-800 p-8'>
+              <p className='text-center text-sm text-purple-600'>{response}</p> 
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    )
+  } else {
+    return (
+      <div className="App h-screen md:flex">
       <div className='w-2/5 bg-gray-300 '>
         <LeftPanel  />
       </div>
@@ -79,9 +114,7 @@ function App() {
               <section className='border-dashed h-20 border-purple-200 border-2 mt-6'>
                 <div  className='' {...getRootProps({className:'dropzone'})}>
                   <input name='file' className='hidden' type='file' {...getInputProps({onChange: function(e){setFieldValue('file', e.currentTarget.files[0])}})} />
-                  {/* <aside> */}
                   <p className='text-center text-sm p-4 text-blue-300'>Drag and drop files or click to browse</p>
-                  {/* </aside> */}
                   {errors.file && touched.file? <Err className='text sm'>{errors.file}</Err>: null}
                 </div>
               </section>
@@ -97,7 +130,9 @@ function App() {
         </div>
       </div>
     </div>
-  );
+    )
+  }
+  
 }
 
 export default App;
