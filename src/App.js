@@ -55,7 +55,15 @@ function App() {
     console.dir(event.target.innerText)
     const filename = event.target.innerText;
     axios.get(`http://localhost:5003/files/${filename}`)
-    .then(response => console.log(response))
+    .then(blob=> {
+      const url = window.URL.createObjectURL(new Blob([blob]));
+      const link = document.createElement('a');
+      link.href = url;
+      link.setAttribute('download', filename);
+      document.body.appendChild(link);
+      link.click();
+      link.parentNode.removeChild(link);
+    })
   }
   
   if(submitted){
@@ -69,7 +77,7 @@ function App() {
           <div className='bg-purple-700  p-5'>
             <div className='text-white text-center capitalize font-bold text-2xl'>Voila! Parsing Done...</div>
           </div>
-          <div className='my-20 mx-12' onClick={downloadFile}>
+          <div className='my-20 mx-20' onClick={downloadFile}>
             <div className='border-dashed border-2 border-purple-800 p-8'>
               <p className='text-center text-sm text-purple-600'>{response}</p> 
             </div>
