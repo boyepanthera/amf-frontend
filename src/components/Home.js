@@ -1,7 +1,7 @@
-import React, {useState} from 'react';
-import './output.css';
+import React , {useState} from 'react';
+import '../output.css';
 import {useDropzone} from 'react-dropzone';
-import {LeftPanel} from './components/LeftPanel';
+import {LeftPanel} from './LeftPanel';
 import {Field, Form, Formik} from 'formik';
 import styled from 'styled-components';
 import * as Yup from 'yup';
@@ -27,7 +27,7 @@ const UploadSchema = Yup.object().shape({
   .required('Email is a required field')
 });
 
-function App() {
+export function Home() {
   const {acceptedFiles, getRootProps, getInputProps} = useDropzone();
   const [err, setErr] = useState(null);
   let [submitted, setSubmit] = useState(false);
@@ -152,7 +152,4 @@ function App() {
     </div>
     )
   }
-  
 }
-
-export default App;
