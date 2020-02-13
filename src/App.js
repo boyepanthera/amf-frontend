@@ -27,6 +27,7 @@ const UploadSchema = Yup.object().shape({
 
 function App() {
   const {acceptedFiles, getRootProps, getInputProps} = useDropzone();
+  const [err, setErr] = useState(null);
   let [submitted, setSubmit] = useState(false);
   const [response, setResponse] = useState(false);
   const files = acceptedFiles.map(file => (
@@ -51,8 +52,8 @@ function App() {
   }
 
   const downloadFile = (event) =>{
-    console.log (event.target);
-    console.dir(event.target.innerText)
+    // console.log (event.target);
+    // console.dir(event.target.innerText);
     const filename = event.target.innerText;
     axios.get(`http://localhost:5003/files/${filename}`)
     .then(blob=> {
@@ -64,6 +65,7 @@ function App() {
       link.click();
       link.parentNode.removeChild(link);
     })
+    .catch(err=> setErr(err)); 
   }
   
   if(submitted){
@@ -77,9 +79,9 @@ function App() {
           <div className='bg-purple-700  p-5'>
             <div className='text-white text-center capitalize font-bold text-2xl'>Voila! Parsing Done...</div>
           </div>
-          <div className='my-20 mx-20' onClick={downloadFile}>
-            <div className='border-dashed border-2 border-purple-800 p-8'>
-              <p className='text-center text-sm text-purple-600'>{response}</p> 
+          <div className='my-20 mx-10' onClick={downloadFile}>
+            <div className='border-dashed border-2 border-purple-800 py-8 px-3' >
+              <p className='text-center text-xs text-purple-600'>{response}</p> 
             </div>
           </div>
         </div>
@@ -94,6 +96,13 @@ function App() {
       </div>
       <div className='w-3/5 bg-gray-200 flex justify-center'>
         <div className=''>
+        <div class="bg-red-100 mt-10 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
+          <strong class="font-bold">{err ? err.message : null}</strong>
+          <span class="block sm:inline">Something seriously bad happened.</span>
+          <span class="absolute top-0 bottom-0 right-0 px-4 py-3">
+            <svg class="fill-current h-6 w-6 text-red-500" role="button" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><title>Close</title><path d="M14.348 14.849a1.2 1.2 0 0 1-1.697 0L10 11.819l-2.651 3.029a1.2 1.2 0 1 1-1.697-1.697l2.758-3.15-2.759-3.152a1.2 1.2 0 1 1 1.697-1.697L10 8.183l2.651-3.031a1.2 1.2 0 1 1 1.697 1.697l-2.758 3.152 2.758 3.15a1.2 1.2 0 0 1 0 1.698z"/></svg>
+          </span>
+        </div>
           <Formik 
           initialValues = {{
             name: '', email:'',
@@ -103,7 +112,7 @@ function App() {
           onSubmit = { handleSubmit }
         >
           {({errors, touched, setFieldValue}) => (
-               <Form className='rounded-b-full w-11/12 bg-white pb-8 mx-auto my-24'>
+               <Form className='rounded-b-full w-11/12 bg-white pb-8 mx-auto mb-24 mt-10'>
               <div className='bg-purple-700  p-5'>
                 <div className='text-white text-center capitalize font-bold text-2xl'>It happens here!</div>
               </div>
