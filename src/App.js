@@ -7,6 +7,7 @@ import styled from 'styled-components';
 import * as Yup from 'yup';
 import axios from 'axios';
 import download from 'downloadjs';
+import CloudDownloadIcon  from '@material-ui/icons/CloudDownload';
 
 const Err = styled.div (
   {
@@ -54,7 +55,8 @@ function App() {
 
   // const downloadFile = (event) =>{
   //   const filename = event.target.innerText;
-  //   axios.get(`http://localhost:5003/files/${filename}`)
+  //   axios.get(`http://localhost:5003/files/${filename}`, {headers : { 'Accept' : 'application/octet-stream'}})
+  //   .then(res=> res.blob())
   //   .then(blob=> {
   //     const url = window.URL.createObjectURL(new Blob([blob]));
   //     const link = document.createElement('a');
@@ -87,7 +89,10 @@ function App() {
           </div>
           <div className='my-20 mx-10' onClick={downloadFile}>
             <div className='border-dashed border-2 border-purple-800 py-8 px-3' >
-              <p className='text-center text-xs text-purple-600'>{response}</p> 
+              <div className ='mx-20 my-0 text-purple-700' >
+                <CloudDownloadIcon  color='inherit' fontSize='large'/>
+              </div>
+                <p className='text-center text-xs text-purple-600'>{response}</p> 
             </div>
           </div>
         </div>
@@ -102,11 +107,11 @@ function App() {
       </div>
       <div className='w-3/5 bg-gray-200 flex justify-center'>
         <div className=''>
-        {/* <div class="bg-red-100 mt-10 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
-          <strong class="font-bold">{err ? err.message : null}</strong>
-          <span class="block sm:inline">Something seriously bad happened.</span>
-          <span class="absolute top-0 bottom-0 right-0 px-4 py-3">
-            <svg class="fill-current h-6 w-6 text-red-500" role="button" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><title>Close</title><path d="M14.348 14.849a1.2 1.2 0 0 1-1.697 0L10 11.819l-2.651 3.029a1.2 1.2 0 1 1-1.697-1.697l2.758-3.15-2.759-3.152a1.2 1.2 0 1 1 1.697-1.697L10 8.183l2.651-3.031a1.2 1.2 0 1 1 1.697 1.697l-2.758 3.152 2.758 3.15a1.2 1.2 0 0 1 0 1.698z"/></svg>
+        {/* <div className="bg-red-100 mt-10 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
+          <strong className="font-bold">{err ? err.message : null}</strong>
+          <span className="block sm:inline">Something seriously bad happened.</span>
+          <span className="absolute top-0 bottom-0 right-0 px-4 py-3">
+            <svg className="fill-current h-6 w-6 text-red-500" role="button" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><title>Close</title><path d="M14.348 14.849a1.2 1.2 0 0 1-1.697 0L10 11.819l-2.651 3.029a1.2 1.2 0 1 1-1.697-1.697l2.758-3.15-2.759-3.152a1.2 1.2 0 1 1 1.697-1.697L10 8.183l2.651-3.031a1.2 1.2 0 1 1 1.697 1.697l-2.758 3.152 2.758 3.15a1.2 1.2 0 0 1 0 1.698z"/></svg>
           </span>
         </div> */}
           <Formik 
@@ -118,7 +123,7 @@ function App() {
           onSubmit = { handleSubmit }
         >
           {({errors, touched, setFieldValue}) => (
-               <Form className='rounded-b-full w-11/12 bg-white pb-8 mx-auto mb-24 mt-10'>
+               <Form className='rounded-b-full w-11/12 bg-white pb-8 mx-auto my-24'>
               <div className='bg-purple-700  p-5'>
                 <div className='text-white text-center capitalize font-bold text-2xl'>It happens here!</div>
               </div>
