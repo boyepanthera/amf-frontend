@@ -15,6 +15,8 @@ const Err = styled.div (
   }
 );
 
+
+
 const UploadSchema = Yup.object().shape({
   name: Yup.string()
     .min(3, 'Too Short! Name cannot be less than 3 characters')
@@ -63,6 +65,16 @@ export function Home() {
     })
   }
 
+  const ErrFlash = ()=> (
+    <div className="bg-red-100 mb-0 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
+            <strong className="font-bold ">{err.message} </strong>
+            <span className="block sm:inline text-sm"> There was an issue.</span>
+            <span onClick={()=>setErr(false)} className="absolute top-0 bottom-0 right-0 px-4 py-3">
+              <svg className="fill-current h-6 w-6 text-red-500" role="button" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><title>Close</title><path d="M14.348 14.849a1.2 1.2 0 0 1-1.697 0L10 11.819l-2.651 3.029a1.2 1.2 0 1 1-1.697-1.697l2.758-3.15-2.759-3.152a1.2 1.2 0 1 1 1.697-1.697L10 8.183l2.651-3.031a1.2 1.2 0 1 1 1.697 1.697l-2.758 3.152 2.758 3.15a1.2 1.2 0 0 1 0 1.698z"/></svg>
+            </span>
+          </div>
+  )
+
   const downloadFile = async event => {
     try {const filename =  event.target.innerText;
       const res = await fetch (`http://localhost:5003/files/${filename}`);
@@ -106,13 +118,7 @@ export function Home() {
       <div className='w-1/2 justify-center max-w-sm mx-auto px-auto'>
       <div className='mt-20 mb-4'>
       {err ? (
-        <div className="bg-red-100 mb-0 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
-          <strong className="font-bold ">{err.message} </strong>
-          <span className="block sm:inline text-sm"> There was an issue.</span>
-          <span onClick={()=>setErr(false)} className="absolute top-0 bottom-0 right-0 px-4 py-3">
-            <svg className="fill-current h-6 w-6 text-red-500" role="button" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><title>Close</title><path d="M14.348 14.849a1.2 1.2 0 0 1-1.697 0L10 11.819l-2.651 3.029a1.2 1.2 0 1 1-1.697-1.697l2.758-3.15-2.759-3.152a1.2 1.2 0 1 1 1.697-1.697L10 8.183l2.651-3.031a1.2 1.2 0 1 1 1.697 1.697l-2.758 3.152 2.758 3.15a1.2 1.2 0 0 1 0 1.698z"/></svg>
-          </span>
-        </div>
+        <ErrFlash/>
         ) : null}
         </div>
           <Formik 
@@ -151,7 +157,7 @@ export function Home() {
                 {/* <ul>{files}</ul> */}
               {/* </div> */}
               <div className='mt-12 justify-center flex h-10'>
-                <button type='submit' className='w-full font-bold bg-purple-600 mx-8 rounded-full hover:bg-purple-800 focus:outline-none shadow-2xl text-white'>{loading ? 'Loading' : 'Parse AMF'}</button>
+                <button type='submit' className='w-full font-bold bg-purple-600 mx-8 rounded-full hover:bg-purple-800 focus:outline-none shadow-2xl text-white'>{loading ? 'Loading ...' : 'Parse AMF'}</button>
               </div>
               </div>
             </Form>            
