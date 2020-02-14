@@ -1,10 +1,11 @@
 import React from 'react';
-import Uploading from '../assets/uploading.svg'
+import Uploading from '../assets/uploading.svg';
+import {Link} from 'react-router-dom';
 
 export const LeftPanel  = ()=>{
   return (
     <div>
-      <div className='p-10 text-purple-700 font-extrabold text-2xl tracking-wide uppercase'>Parser</div>
+      <div className='p-10 text-purple-700 font-extrabold text-2xl tracking-wide uppercase'><Link to='/'>Parser</Link></div>
         <div className='mx-auto my-12 flex justify-center md:flex-shrink-0'>
           <img className='h-64' src={Uploading} alt='Explainer Standing with Direction for app use'/>
         </div>
