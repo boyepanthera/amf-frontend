@@ -1,6 +1,6 @@
 module.exports = {
     theme: {
-        fontSize : {
+        fontSize: {
             'xs': '.75rem',
             'sm': '.875rem',
             'tiny': '.875rem',
@@ -13,7 +13,13 @@ module.exports = {
             '5xl': '3rem',
             '6xl': '4rem',
             '7xl': '5rem',
-            'Banner' : '7rem',
+            'Banner': '7rem',
+        },
+        screens: {
+            'sm': { 'max': '639px' },
+            'md': { 'max': '767px' },
+            'lg': { 'max': '1023px' },
+            'xl': { 'max': '1279px' },
         }
     },
     variant: {},
