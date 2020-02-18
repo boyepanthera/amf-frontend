@@ -101,14 +101,14 @@ export function Home() {
 
   if (submitted) {
     return (
-      <div className="App h-screen md:flex">
+      <div className="App h-screen flex md:block">
         <div className="w-2/5 bg-gray-300 ">
           <LeftPanel />
         </div>
         <div className="w-3/5 bg-gray-200 flex justify-center">
           <div className="bg-white h-auto rounded-b-full w-1/3 my-40">
             <div className="bg-purple-700  p-5">
-              <div className="text-white text-center capitalize font-bold text-xl">
+              <div className="text-white sm:text-base text-center capitalize font-bold text-xl">
                 Voila! Parsing Done...
               </div>
             </div>
