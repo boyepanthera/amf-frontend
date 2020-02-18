@@ -103,6 +103,7 @@ export function Home() {
     return (
       <div className="App h-screen flex md:block">
         <div className="w-2/5 bg-gray-300 ">
+          <div className='p-10  text-purple-700 font-extrabold text-2xl tracking-wide uppercase'><Link to='/'>Parser</Link></div>
           <LeftPanel />
         </div>
         <div className="w-3/5 bg-gray-200 flex justify-center">
