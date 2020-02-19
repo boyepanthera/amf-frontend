@@ -39,6 +39,7 @@ export function Home() {
     </li>
   ));
 
+
   const handleSubmit = values => {
     console.log(values);
     setLoading(true);
@@ -63,6 +64,8 @@ export function Home() {
         setTimeout(() => setErr(false), 5000);
       });
   };
+
+  const Loader = () => <span>Loading...  <i className='fas fa-spinner fa-spin'></i> </span>
 
   const ErrFlash = () => (
     <div
@@ -216,7 +219,7 @@ export function Home() {
                         type="submit"
                         className="w-full md:text-xs font-bold bg-purple-600 mx-8 rounded-full hover:bg-purple-800 focus:outline-none shadow-2xl text-white"
                       >
-                        {loading ? "Loading ..." : "Parse AMF"}
+                        {loading ? <Loader /> : "Parse AMF"}
                       </button>
                     </div>
                   </div>
