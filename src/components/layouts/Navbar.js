@@ -14,8 +14,8 @@ export const Navbar = () => {
                     </button>
                 </div>
             </div>
-            <div className="w-full block flex-grow lg:flex lg:items-center lg:w-auto">
-                <div className="text-sm lg:flex-grow ml-auto">
+            <div className="w-full block flex-grow lg:flex lg:items-center lg:w-auto  ml-auto">
+                <div className="text-sm justify-end flex mr-8 lg:flex-grow">
                     <Link to='/newauth' className="block mt-4 lg:inline-block lg:mt-0 text-white hover:text-white mr-4">SignUp</Link>
                     <Link to='/parse' className="block mt-4 lg:inline-block lg:mt-0 text-white hover:text-white">Parse</Link>
                 </div>

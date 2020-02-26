@@ -105,11 +105,11 @@ export function Parse() {
   if (submitted) {
     return (
       <div className="App h-screen flex md:block">
-        <div className="w-2/5 bg-gray-300 ">
+        <div className="col-span-6 bg-gray-300 ">
           <div className='p-10  text-purple-700 font-extrabold text-2xl tracking-wide uppercase'><Link to='/'>Parser</Link></div>
           <LeftPanel />
         </div>
-        <div className="w-3/5 bg-gray-200 flex justify-center">
+        <div className="col-span-6 bg-gray-200 flex justify-center">
           <div className="bg-white h-auto rounded-b-full w-1/3 my-40">
             <div className="bg-purple-700  p-5">
               <div className="text-white sm:text-base text-center capitalize font-bold text-xl">
@@ -132,13 +132,13 @@ export function Parse() {
     );
   } else {
     return (
-      <div className="App h-screen md:block flex mb-0">
-        <div className="w-full bg-gray-300 flex-1 h-full my-0">
+      <div className="App flex h-screen">
+        <div className=" bg-gray-300 w-2/5">
           <div className='p-10  text-purple-700 font-extrabold text-2xl tracking-wide uppercase'><Link to='/'>Parser</Link></div>
           <LeftPanel />
         </div>
-        <div className="w-full bg-gray-200 flex-1 h-full my-0 md:pt-10 lg:pt-10">
-          <div className="w-1/2 justify-center  min-w-lg mx-auto px-auto">
+        <div className=" bg-gray-200 w-3/5">
+          <div className="justify-center">
             <div className="mt-20 mb-4">{err ? <ErrFlash /> : null}</div>
             <Formik
               initialValues={{
@@ -150,7 +150,7 @@ export function Parse() {
               onSubmit={handleSubmit}
             >
               {({ errors, touched, setFieldValue }) => (
-                <Form className="rounded-b-full w-11/12 sm:w-full bg-white pb-8 mx-auto mt-0 mb-24">
+                <Form className="rounded-b-full bg-white pb-8 mx-auto mt-0 mb-24 w-2/5">
                   <div className="bg-purple-700  p-5">
                     <div className="text-white md:text-base text-center capitalize font-bold text-2xl">
                       The Magic Happens here!
