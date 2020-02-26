@@ -3,7 +3,8 @@ import "../output.css";
 import { useDropzone } from "react-dropzone";
 import { LeftPanel } from "./LeftPanel";
 import { Field, Form, Formik } from "formik";
-import { Link } from 'react-router-dom';
+import { Navbar } from './layouts/Navbar'
+// import { Link } from 'react-router-dom';
 import styled from "styled-components";
 import * as Yup from "yup";
 import axios from "axios";
@@ -106,7 +107,6 @@ export function Parse() {
     return (
       <div className="App h-screen flex md:block">
         <div className="col-span-6 bg-gray-300 ">
-          <div className='p-10  text-purple-700 font-extrabold text-2xl tracking-wide uppercase'><Link to='/'>Parser</Link></div>
           <LeftPanel />
         </div>
         <div className="col-span-6 bg-gray-200 flex justify-center">
@@ -132,100 +132,104 @@ export function Parse() {
     );
   } else {
     return (
-      <div className="App flex flex-wrap h-screen">
-        <div className="bg-gray-300 w-2/5">
-          <div className='p-10  text-purple-700 font-extrabold text-2xl tracking-wide uppercase'><Link to='/'>Parser</Link></div>
-          <LeftPanel />
+      <div className="App  h-screen">
+        <div className='w-full'>
+          <Navbar />
         </div>
-        <div className="bg-gray-200 w-3/5">
-          <div className="justify-center">
-            <div className="mt-20 mb-4">{err ? <ErrFlash /> : null}</div>
-            <Formik
-              initialValues={{
-                name: "",
-                email: "",
-                file: {}
-              }}
-              validationSchema={UploadSchema}
-              onSubmit={handleSubmit}
-            >
-              {({ errors, touched, setFieldValue }) => (
-                <Form className="rounded-b-full bg-white pb-8 mx-auto mt-0 mb-24 max-md w-2/5">
-                  <div className="bg-purple-700  p-5">
-                    <div className="text-white md:text-base text-center capitalize font-bold text-2xl">
-                      The Magic Happens here!
+        <div className='w-full flex flex-wrap'>
+          <div className="w-2/5">
+            <LeftPanel />
+          </div>
+          <div className="w-3/5  bg-gray-100">
+            <div className="justify-center">
+              <div className="mt-20 mb-4">{err ? <ErrFlash /> : null}</div>
+              <Formik
+                initialValues={{
+                  name: "",
+                  email: "",
+                  file: {}
+                }}
+                validationSchema={UploadSchema}
+                onSubmit={handleSubmit}
+              >
+                {({ errors, touched, setFieldValue }) => (
+                  <Form className="rounded-b-full shadow-lg bg-white pb-8 mx-auto mt-0 mb-24 max-md w-2/5">
+                    <div className="bg-orange-500  p-5">
+                      <div className="text-white md:text-base text-center capitalize font-bold text-2xl">
+                        The Magic Happens here!
                     </div>
-                  </div>
-                  <div className="px-12 md:px-6 py-2 my-6">
-                    <div className="mb-8">
-                      <label className="text-xs" htmlFor="name">
-                        Name
+                    </div>
+                    <div className="px-12 md:px-6 py-2 my-6">
+                      <div className="mb-8">
+                        <label className="text-xs" htmlFor="name">
+                          Name
                       </label>
-                      <Field
-                        name="name"
-                        className="bg-white focus:outline-none focus:shadow-outline border border-gray-300 rounded-xs py-2 px-4 block w-full appearance-none leading-normal mb-2"
-                        placeholder="Let me know your name"
-                      />
-                      {errors.name && touched.name ? (
-                        <Err className="text-sm">{errors.name}</Err>
-                      ) : null}
-                    </div>
-                    <div className="mb-8">
-                      <label className="text-xs" htmlFor="email">
-                        Email
-                      </label>
-                      <Field
-                        name="email"
-                        type="email"
-                        className="bg-white focus:outline-none focus:shadow-outline border border-gray-300 rounded-xs py-2 px-4 block w-full appearance-none leading-normal mb-2"
-                        placeholder="Your email goes here..."
-                      />
-                      {errors.email && touched.email ? (
-                        <Err className="text-sm">{errors.email}</Err>
-                      ) : null}
-                    </div>
-                    <div className="border-dashed h-20 border-purple-200 border-2 mt-6 ">
-                      <div
-                        className=""
-                        {...getRootProps({ className: "dropzone" })}
-                      >
-                        <input
-                          name="file"
-                          className="hidden focus:outline-none"
-                          type="file"
-                          {...getInputProps({
-                            onChange: function (e) {
-                              setFieldValue("file", e.currentTarget.files[0]);
-                              setFileUp(true);
-                            }
-                          })}
+                        <Field
+                          name="name"
+                          className="bg-white focus:outline-none focus:shadow-outline border border-gray-300 rounded-xs py-2 px-4 block w-full appearance-none leading-normal mb-2"
+                          placeholder="Let me know your name"
                         />
-                        {fileUp ? (
-                          <ul className="text-center text-sm p-8 text-blue-300 ">
-                            {files}
-                          </ul>
-                        ) : (
-                            <p className="text-center md:text-xs text-sm p-4 text-blue-300">
-                              Drag and drop files or click to browse
-                          </p>
-                          )}
-                        {errors.file && touched.file ? (
-                          <Err className="text sm">{errors.file}</Err>
+                        {errors.name && touched.name ? (
+                          <Err className="text-sm">{errors.name}</Err>
                         ) : null}
                       </div>
+                      <div className="mb-8">
+                        <label className="text-xs" htmlFor="email">
+                          Email
+                      </label>
+                        <Field
+                          name="email"
+                          type="email"
+                          className="bg-white focus:outline-none focus:shadow-outline border border-gray-300 rounded-xs py-2 px-4 block w-full appearance-none leading-normal mb-2"
+                          placeholder="Your email goes here..."
+                        />
+                        {errors.email && touched.email ? (
+                          <Err className="text-sm">{errors.email}</Err>
+                        ) : null}
+                      </div>
+                      <div className="border-dashed focus:outline-none h-20 border-orange-300 border-2 mt-6 ">
+                        <div
+                          className="focus:outline-none"
+                          {...getRootProps({ className: "dropzone" })}
+                        >
+                          <input
+                            name="file"
+                            className="hidden focus:outline-none"
+                            type="file"
+                            {...getInputProps({
+                              onChange: function (e) {
+                                setFieldValue("file", e.currentTarget.files[0]);
+                                setFileUp(true);
+                              }
+                            })}
+                          />
+                          {fileUp ? (
+                            <ul className="text-center text-sm p-8 text-blue-300 ">
+                              {files}
+                            </ul>
+                          ) : (
+                              <p className="text-center focus:outline-none md:text-xs text-sm p-4 text-blue-300">
+                                Drag and drop files or click to browse
+                          </p>
+                            )}
+                          {errors.file && touched.file ? (
+                            <Err className="text sm">{errors.file}</Err>
+                          ) : null}
+                        </div>
+                      </div>
+                      <div className="mt-12 justify-center flex h-10">
+                        <button
+                          type="submit"
+                          className="w-full md:text-xs font-bold bg-orange-500 mx-8 rounded-full hover:bg-orange-300 focus:outline-none shadow-2xl text-white"
+                        >
+                          {loading ? <Loader /> : "Parse AMF"}
+                        </button>
+                      </div>
                     </div>
-                    <div className="mt-12 justify-center flex h-10">
-                      <button
-                        type="submit"
-                        className="w-full md:text-xs font-bold bg-purple-600 mx-8 rounded-full hover:bg-purple-800 focus:outline-none shadow-2xl text-white"
-                      >
-                        {loading ? <Loader /> : "Parse AMF"}
-                      </button>
-                    </div>
-                  </div>
-                </Form>
-              )}
-            </Formik>
+                  </Form>
+                )}
+              </Formik>
+            </div>
           </div>
         </div>
       </div>

@@ -8,8 +8,8 @@ export const LeftPanel = () => {
         <div className=' my-12 max-w-full flex flex-shrink-0'>
           <img className='h-64' src={Uploading} alt='Explainer Standing with Direction for app use' />
         </div>
-        <div className='item-1 text-3xl text-center font-bold text-purple-700 sm:text-sm md:text-lg lg:text-2xl'>In One Click.</div>
-        <div className='text-purple-600 text-center m-5 font-bold text-sm'>Attach your AMF and get it parsed for you.</div>
+        <div className='item-1 text-3xl text-center font-bold text-orange-700 sm:text-sm md:text-lg lg:text-2xl'>In One Click.</div>
+        <div className='text-orange-600 text-center m-5 font-bold text-sm'>Attach your AMF and get it parsed for you.</div>
       </div>
     </div>
   )
