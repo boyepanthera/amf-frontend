@@ -25,7 +25,7 @@ const UploadSchema = Yup.object().shape({
     .required("Email is a required field")
 });
 
-export function Home() {
+export function Parse() {
   const { acceptedFiles, getRootProps, getInputProps } = useDropzone();
   const [loading, setLoading] = useState(false);
   // const [flash,  setFlash] = useState (false);
