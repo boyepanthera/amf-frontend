@@ -9,7 +9,7 @@ export const LeftPanel = () => {
           <img className='h-64 ' src={Uploading} alt='Explainer Standing with Direction for app use' />
         </div>
         <div className='item-1 text-3xl text-center font-bold text-orange-700 '>In One Click.</div>
-        <div className='text-orange-600 text-center m-5 font-bold text-sm'>Attach your AMF and get it parsed for you.</div>
+        <div className='text-orange-600 text-center mx-5 mb-32 font-bold text-sm'>Attach your AMF and get it parsed for you.</div>
       </div>
     </div>
   )

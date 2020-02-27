@@ -105,25 +105,30 @@ export function Parse() {
 
   if (submitted) {
     return (
-      <div className="App h-screen flex md:block">
-        <div className="col-span-6 bg-gray-300 ">
-          <LeftPanel />
+      <div className="App h-full">
+        <div className='w-full'>
+          <Navbar />
         </div>
-        <div className="col-span-6 bg-gray-200 flex justify-center">
-          <div className="bg-white h-auto rounded-b-full w-1/3 my-40">
-            <div className="bg-purple-700  p-5">
-              <div className="text-white sm:text-base text-center capitalize font-bold text-xl">
-                Voila! Parsing Done...
-              </div>
-            </div>
-            <div className="my-20 mx-10" onClick={downloadFile}>
-              <div className="border-dashed border-2 border-purple-800 py-8 px-3">
-                <div className="mx-20 my-0 text-purple-700">
-                  <CloudDownloadIcon color="inherit" fontSize="large" />
+        <div className='w-full flex flex-wrap'>
+          <div className="bg-gray-300 w-1/2 ">
+            <LeftPanel />
+          </div>
+          <div className="w-1/2 bg-gray-100 justify-center">
+            <div className="bg-white mx-auto w-1/2 mt-40 shadow-lg rounded-b-lg">
+              <div className="bg-orange-500  p-5">
+                <div className="text-white text-center capitalize font-bold text-2xl">
+                  Voila! Parsing Done...
                 </div>
-                <p className="text-center text-xs text-purple-600">
-                  {response}
-                </p>
+              </div>
+              <div className="mx-10 py-24 rounded-b-full" >
+                <div onClick={downloadFile} className="border-dashed  border-2 items-center justify-center border-orange-300 py-8 px-3">
+                  <div className="items-center flex justify-center text-orange-500">
+                    <CloudDownloadIcon className='mx-auto ' color="inherit" fontSize="large" />
+                  </div>
+                  <p className="text-center text-xs text-purple-600">
+                    {response}
+                  </p>
+                </div>
               </div>
             </div>
           </div>
@@ -163,7 +168,7 @@ export function Parse() {
                       <div className="mb-8">
                         <label className="text-xs" htmlFor="name">
                           Name
-                      </label>
+                        </label>
                         <Field
                           name="name"
                           className="bg-white focus:outline-none focus:shadow-outline border border-gray-300 rounded-xs py-2 px-4 block w-full appearance-none leading-normal mb-2"
