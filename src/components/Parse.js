@@ -167,7 +167,7 @@ export function Parse() {
                         <Field
                           name="name"
                           className="bg-white focus:outline-none focus:shadow-outline border border-gray-300 rounded-xs py-2 px-4 block w-full appearance-none leading-normal mb-2"
-                          placeholder="Let me know your name"
+                          placeholder="e.g.  John Jude"
                         />
                         {errors.name && touched.name ? (
                           <Err className="text-sm">{errors.name}</Err>
@@ -181,7 +181,7 @@ export function Parse() {
                           name="email"
                           type="email"
                           className="bg-white focus:outline-none focus:shadow-outline border border-gray-300 rounded-xs py-2 px-4 block w-full appearance-none leading-normal mb-2"
-                          placeholder="Your email goes here..."
+                          placeholder="e.g. johnjude@gtbank.com"
                         />
                         {errors.email && touched.email ? (
                           <Err className="text-sm">{errors.email}</Err>

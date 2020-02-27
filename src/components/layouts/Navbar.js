@@ -3,10 +3,11 @@ import { Link } from 'react-router-dom';
 
 export const Navbar = () => {
     return (
-        <nav className='flex justify-between items-center flex-wrap p-4 bg-orange-500'>
+        <nav className='flex justify-between items-center flex-wrap p-4 px-12 bg-orange-500'>
             <div>
                 <div className='flex items-center text-white flex-shrink-0'>
-                    <span className='tracking-tight font-bold text-xl'><Link to='/'>AMF Parser</Link></span>
+                    {/* <span className='tracking-tight font-bold text-xl'><Link to='/'>AMF Parser</Link></span> */}
+                    <Link to='/' class="inline-block text-sm px-4 py-2 leading-none border rounded text-white border-white hover:border-transparent hover:text-orange-500 hover:bg-white mt-4 lg:mt-0">AMF Parser</Link>
                 </div>
                 <div class="block lg:hidden">
                     <button class="flex items-center px-3 py-2 border rounded text-teal-200 border-orange-400 hover:text-white hover:border-white">
