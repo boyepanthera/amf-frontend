@@ -3,6 +3,7 @@ import { Navbar } from "./layouts/Navbar";
 import { Form, Field, Formik } from "formik";
 import { Link } from 'react-router-dom';
 import * as Yup from 'yup';
+import axios from 'axios';
 
 const SignupSchema = Yup.object().shape({
     firstName: Yup.string()
@@ -21,18 +22,21 @@ const SignupSchema = Yup.object().shape({
         .required('Password cannot be empty')
         .matches(/[a-zA-Z]/, 'Password can only contain latin letters'),
     confirmPassword: Yup.string()
-        .min(8, 'Password is too short, minimum of 8 characters!')
-        .required('Password cannot be empty')
-        .matches(/[a-zA-Z]/, 'Password can only contain latin letters')
+        .oneOf([Yup.ref('password'), null], 'Passwords must match')
 })
 
 export const Signup = () => {
+    const handleSubmit = async (values) => {
+        let response = axios.post('http://localhost:5003/api/v1/newauth', values, { headers: { 'Accept': 'application/json' } });
+        console.log(response);
+    }
+
     return (
         <div className='bg-gray-100 h-screen'>
             <Navbar />
             <div>
                 <Formik
-
+                    onSubmit={handleSubmit}
                     initialValues={{
                         firstName: '',
                         lastName: '',
