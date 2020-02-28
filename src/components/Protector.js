@@ -19,24 +19,3 @@ export const Protector = ({Component, ...rest}) => {
         />
     )
 }
-
-// export function Protector({ component : Component, ...rest }) {
-//     let authToken = localStorage.getItem('token')
-//   return (
-//     <Route
-//       {...rest}
-//       render={ props =>
-//         authToken ? (
-//           <Component {...props}/>
-//         ) : (
-//           <Redirect
-//             to={{
-//               pathname: "/login",
-//               state: { from: props.location }
-//             }}
-//           />
-//         )
-//       }
-//     />
-//   );
-// }

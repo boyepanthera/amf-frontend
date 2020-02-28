@@ -16,7 +16,6 @@ export const Login = () => {
       .matches(/[a-zA-Z]/, 'Password can only contain latin letters'),
   })
 
-
   return (
     <div className='bg-gray-200 h-screen'>
       <Navbar />
