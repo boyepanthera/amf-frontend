@@ -5,7 +5,6 @@ import { Link } from 'react-router-dom';
 import * as Yup from 'yup';
 
 export const Login = () => {
-
   let LoginSchema = Yup.object().shape({
     email: Yup.string()
       .email('Not a valid mail format')
@@ -15,6 +14,9 @@ export const Login = () => {
       .required('Password cannot be empty')
       .matches(/[a-zA-Z]/, 'Password can only contain latin letters'),
   })
+  const handleSubmit = (values) => {
+    console.log(values);
+  }
 
   return (
     <div className='bg-gray-200 h-screen'>
@@ -26,13 +28,14 @@ export const Login = () => {
             password: ''
           }}
           validationSchema={LoginSchema}
+          onSubmit={handleSubmit}
         >
           {({ errors, touched }) =>
             <Form className="bg-white p-8 w-full mx-auto p-8 mt-32 mb-64 max-w-md w-1/4 shadow-lg rounded-lg">
               <div className="mb-4 mt-4 block ">
                 <label className="block text-gray-700 text-sm font-bold">
                   Email
-              </label>
+                </label>
                 <Field
                   className="h-12 w-full block border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                   type="email"

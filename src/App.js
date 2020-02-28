@@ -11,7 +11,7 @@ import { Dashboard } from './components/Dashboard';
 const App = () => {
     return (
         <Switch>
-            <Protector path='/' exact component={Home} />
+            <Route path='/' exact component={Home} />
             <Protector path='/parse' exact component={Parse} />
             <Protector path='/dashboard' exact component={Dashboard} />
             <Route path='/auth' exact component={Login} />
