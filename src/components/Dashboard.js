@@ -6,20 +6,20 @@ import * as Yup from 'yup';
 export const Dashboard = () => {
     let DashSchema = Yup.object().shape({
         oldCode: Yup.string()
-            .min(8, 'Password is too short, minimum of 8 characters!')
-            .required('Password cannot be empty'),
+            .test('len', 'Old code has to be exactly four characters!', val => val.length === 4)
+            .required('Old ledger code cannot be empty'),
         glName: Yup.string()
-            .min(8, 'Password is too short, minimum of 8 characters!')
-            .required('Password cannot be empty'),
+            .min(2, 'Too short, Group ledger name has minimum of 2 characters!')
+            .required('Group ledger code cannot be empty'),
         finalCode: Yup.string()
-            .min(8, 'Password is too short, minimum of 8 characters!')
-            .required('Password cannot be empty'),
-        sideCode: Yup.string()
-            .min(8, 'Password is too short, minimum of 8 characters!')
-            .required('Password cannot be empty'),
+            .test('len', 'New  ledger code has to be exactly 4 characters!', val => val.length === 4)
+            .required('New ledger code cannot be empty'),
+        // sideCode: Yup.string()
+        //     .min(8, 'Password is too short, minimum of 8 characters!')
+        //     .required('Password cannot be empty'),
         side: Yup.string()
-            .min(8, 'Password is too short, minimum of 8 characters!')
-            .required('Password cannot be empty'),
+            .test('len', 'Not allowed, side has to be two characters Dr/Cr!', val => val.length === 2)
+            .required('Side cannot be empty'),
     })
     const handleSubmit = (values) => {
         console.log(values);
@@ -28,20 +28,13 @@ export const Dashboard = () => {
     return (
         <div className='bg-gray-100 h-screen'>
             <Navbar />
-            <div>
-                <div className='mx-auto'>
-                    Hey Table over here
-                </div>
-            </div>
-            <div className='w-2/3 mx-auto'>
-
-
+            <div className='w-4/5 mx-auto'>
                 <Formik
                     initialValues={{
                         oldColde: '',
                         glName: '',
                         finalCode: '',
-                        sideCode: '',
+                        // sideCode: '',
                         side: ''
                     }}
                     onSubmit={handleSubmit}
@@ -52,27 +45,22 @@ export const Dashboard = () => {
                             <div className='flex flex-wrap -mx-3 mb-2'>
                                 <div className='w-full md:w-1/5 px-2 mb-6 md:mb-0'>
                                     <label>Old GL Code</label>
-                                    <Field name='oldCode' type='text' placeholder='' className='h-10 w-full rounded border border-gray-200 focus:border-gray-200' />
-                                    {errors.name && touched.name ? (<div className='text-red-300'>{errors.name}</div>) : null}
+                                    <Field name='oldCode' type='text' placeholder='' className='h-10 w-full rounded border leading-tight focus:outline-none focus:bg-white focus:border-gray-500' />
+                                    {errors.oldCode && touched.oldCode ? (<div className='text-red-300'>{errors.oldCode}</div>) : null}
                                 </div>
-                                <div className='w-full md:w-1/5 px-2 mb-6 md:mb-0'>
+                                <div className='w-full md:w-2/5 px-2 mb-6 md:mb-0'>
                                     <label>GL Name</label>
-                                    <Field type='text' name='glName' placeholder='' className='h-10 w-full rounded border border-gray-200 focus:border-gray-200' />
+                                    <Field type='text' name='glName' placeholder='' className='h-10 w-full rounded border leading-tight focus:outline-none focus:bg-white focus:border-gray-500' />
                                     {errors.glName && touched.glName ? (<div className='text-red-300'>{errors.glName}</div>) : null}
                                 </div>
                                 <div className='w-full md:w-1/5 px-2 mb-6 md:mb-0'>
-                                    <label>Final to use</label>
+                                    <label>Final GL to use</label>
                                     <Field type='text' name='finalCode' placeholder='' className='h-10 w-full rounded border leading-tight focus:outline-none focus:bg-white focus:border-gray-500 ' />
                                     {errors.finalCode && touched.finalCode ? (<div className='text-red-300'>{errors.finalCode}</div>) : null}
                                 </div>
                                 <div className='w-full md:w-1/5 px-2 mb-6 md:mb-0'>
-                                    <label>The CR/Dr Code on it</label>
-                                    <Field type='text' placeholder='' name='sideCode' className='h-10 w-full rounded border focus:border-gray-500 ' />
-                                    {errors.sideCode && touched.sideCode ? (<div className='text-red-300'>{errors.sideCode}</div>) : null}
-                                </div>
-                                <div className='w-full md:w-1/5 px-2 mb-6 md:mb-0'>
-                                    <label>Dr/Cr</label>
-                                    <Field type='text' name='side' placeholder='' className='h-10 w-full rounded border focus:border-gray-500 ' />
+                                    <label>Side(Dr/Cr)</label>
+                                    <Field type='text' name='side' placeholder='' className='h-10 w-full rounded border leading-tight focus:outline-none focus:bg-white focus:border-gray-500' />
                                     {errors.side && touched.side ? (<div className='text-red-300'>{errors.side}</div>) : null}
                                 </div>
                                 <div className='flex ml-auto mr-2 my-8'>
