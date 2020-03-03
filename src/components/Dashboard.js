@@ -78,20 +78,6 @@ export const Dashboard = () => {
                                             </tr>
                                         ))
                                     }
-                                    {/* <tr>
-                                        <td className='px-6 py-4 whitespace-no-wrap border-b border-gray-200 text-right tracking-wider'>1.</td>
-                                        <td className='px-6 py-4 whitespace-no-wrap border-b border-gray-200 text-left text-sm tracking-wider'>4690</td>
-                                        <td className='px-6 py-4 whitespace-no-wrap border-b border-gray-200 text-left text-sm tracking-wider'>IMTOs</td>
-                                        <td className='px-6 py-4 whitespace-no-wrap border-b border-gray-200 text-left text-sm tracking-wider'>0600</td>
-                                        <td className='px-6 py-4 whitespace-no-wrap border-b border-gray-200 text-left text-sm tracking-wider'>Dr</td>
-                                    </tr>
-                                    <tr>
-                                        <td className='px-6 py-4 whitespace-no-wrap border-b border-gray-200 text-right'>2.</td>
-                                        <td className='px-6 py-4 whitespace-no-wrap border-b border-gray-200 text-left text-sm'>0001</td>
-                                        <td className='px-6 py-4 whitespace-no-wrap border-b border-gray-200 text-left text-sm'>Overdraft</td>
-                                        <td className='px-6 py-4 whitespace-no-wrap border-b border-gray-200 text-left text-sm'>0003</td>
-                                        <td className='px-6 py-4 whitespace-no-wrap border-b border-gray-200 text-left text-sm'>Dr</td>
-                                    </tr> */}
                                 </tbody>
                             </table>
                         </div>

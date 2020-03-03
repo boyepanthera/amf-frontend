@@ -1,10 +1,15 @@
-import React from "react";
+import React, { useContext, useState } from "react";
 import { Form, Field, Formik } from "formik";
 import { Navbar } from "./layouts/Navbar";
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import * as Yup from 'yup';
+import Axios from "axios";
+import { AuthContext } from '../App';
 
 export const Login = () => {
+  const { dispatch } = useContext(AuthContext);
+  const [err, setErr] = useState(null);
+  let history = useHistory();
   let LoginSchema = Yup.object().shape({
     email: Yup.string()
       .email('Not a valid mail format')
@@ -14,13 +19,25 @@ export const Login = () => {
       .required('Password cannot be empty')
       .matches(/[a-zA-Z]/, 'Password can only contain latin letters'),
   })
-  const handleSubmit = (values) => {
-    console.log(values);
+  const handleSubmit = async (values, { resetForm }) => {
+    try {
+      // console.log(values);
+      let response = await Axios.post('http://localhost:5003/api/v1/auth', values, { headers: { Accept: "application/json" } })
+      // console.log(response);
+      dispatch({ type: 'LOGIN', payload: response.data })
+      resetForm();
+      history.push('/dashboard')
+    } catch (err) {
+      setErr(err.message);
+      // console.log(err)
+    }
   }
+
 
   return (
     <div className='bg-gray-200 h-screen'>
       <Navbar />
+      <div>{err ? err : null}</div>
       <div>
         <Formik
           initialValues={{
@@ -56,7 +73,7 @@ export const Login = () => {
                 />
                 {errors.password && touched.password ? (<div className='text-red-400 text-sm'>{errors.password}</div>) : null}
               </div>
-              <button className="bg-orange-500 font-bold hover:bg-orange-400 focus:outline-none px-4 w-full py-2 rounded-full my-4 text-white">
+              <button type="submit" className="bg-orange-500 font-bold hover:bg-orange-400 focus:outline-none px-4 w-full py-2 rounded-full my-4 text-white">
                 Login <i className='fas ml-2 fa-sign-in-alt text-white'></i>
               </button>
               <div className='text-sm'><span>Have no account?</span> <Link className='text-purple-500 text-right' to='/newauth'>Signup here</Link></div>

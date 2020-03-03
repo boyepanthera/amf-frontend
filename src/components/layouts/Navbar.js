@@ -1,7 +1,14 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useContext } from 'react';
+import { Link, useHistory } from 'react-router-dom';
+import { AuthContext } from '../../App';
 
 export const Navbar = () => {
+    let history = useHistory();
+    const { state, dispatch } = useContext(AuthContext);
+    const handleLogout = () => {
+        dispatch({ type: 'LOGOUT' })
+        history.push('/auth');
+    }
     return (
         <nav className='flex justify-between items-center flex-wrap p-4 px-12 bg-orange-500'>
             <div>
@@ -16,9 +23,17 @@ export const Navbar = () => {
             </div>
             <div className="w-full block flex-grow lg:flex lg:items-center lg:w-auto  ml-auto">
                 <div className="text-sm justify-end flex mr-8 lg:flex-grow">
-                    <Link to='/auth' className="block mt-4 lg:inline-block lg:mt-0 text-white hover:text-white mr-4">Login</Link>
-                    <Link to='/newauth' className="block mt-4 lg:inline-block lg:mt-0 text-white hover:text-white mr-4">Signup</Link>
-                    <Link to='/parse' className="block mt-4 lg:inline-block lg:mt-0 text-white hover:text-white">Parse</Link>
+                    {
+                        state.isLoggedIn ?
+                            <>
+                                <button onClick={handleLogout} className="focus:outline-none block mt-4 lg:inline-block lg:mt-0 text-white hover:text-white mr-4">Logout</button>
+                                <Link to='/parse' className="block mt-4 lg:inline-block lg:mt-0 text-white hover:text-white">Parse</Link>
+                            </> :
+                            <>
+                                <Link to='/auth' className="block mt-4 lg:inline-block lg:mt-0 text-white hover:text-white mr-4">Login</Link>
+                                <Link to='/newauth' className="block mt-4 lg:inline-block lg:mt-0 text-white hover:text-white mr-4">Signup</Link>
+                            </>
+                    }
                 </div>
                 <div>
                     <Link to='/dashboard' className="inline-block text-sm px-4 py-2 leading-none border rounded text-white border-white hover:border-transparent hover:text-orange-500 hover:bg-white mt-4 lg:mt-0">Dashboard</Link>

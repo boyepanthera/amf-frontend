@@ -4,18 +4,18 @@ import {
     Redirect
 } from 'react-router-dom';
 
-export const Protector = ({Component, ...rest}) => {
+export const Protector = ({ component: Component, ...rest }) => {
     let authToken = localStorage.getItem('token');
-    return ( <Route {
-            ...rest
-        }
-       render = {
-            ({location}) =>
-            authToken ? <Component /> : ( <Redirect to ={{
-                pathname: '/',
-                state : {from : location}
+    return (<Route {
+        ...rest
+    }
+        render={
+            ({ location }) =>
+                authToken ? <Component /> : (<Redirect to={{
+                    pathname: '/auth',
+                    state: { from: location }
                 }} />)
         }
-        />
+    />
     )
 }

@@ -1,7 +1,7 @@
 import React from "react";
 import { Navbar } from "./layouts/Navbar";
 import { Form, Field, Formik } from "formik";
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import * as Yup from 'yup';
 import axios from 'axios';
 
@@ -26,11 +26,17 @@ const SignupSchema = Yup.object().shape({
 })
 
 export const Signup = () => {
-    const handleSubmit = async (values) => {
-        let response = axios.post('http://localhost:5003/api/v1/newauth', values, { headers: { 'Accept': 'application/json' } });
-        console.log(response);
+    let history = useHistory();
+    const handleSubmit = async (values, { resetForm }) => {
+        try {
+            let response = await axios.post('http://localhost:5003/api/v1/newauth', values, { headers: { 'Accept': 'application/json' } });
+            console.log(response);
+            resetForm();
+            history.push('/auth');
+        } catch (err) {
+            // console.log(err);
+        }
     }
-
     return (
         <div className='bg-gray-100 h-screen'>
             <Navbar />
@@ -78,7 +84,7 @@ export const Signup = () => {
                                 {errors.confirmPassword && touched.confirmPassword ? (<div className='text-red-500 text-sm'>{errors.confirmPassword}</div>) : null}
                             </div>
                         </div>
-                        <button className='w-full h-10 px-3 my-4 text-white font-semibold focus:outline-none hover:bg-orange-300 rounded-full bg-orange-500'><i className='fas mr-2 fa-sign-in-alt text-white'></i>Signup</button>
+                        <button type='submit' className='w-full h-10 px-3 my-4 text-white font-semibold focus:outline-none hover:bg-orange-300 rounded-full bg-orange-500'><i className='fas mr-2 fa-sign-in-alt text-white'></i>Signup</button>
                         <div className='px-3 text-sm'>Already have an account?  <Link className='ml-2 text-purple-500' to='/'>Login instead!</Link></div>
                     </Form>
                 )
