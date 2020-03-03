@@ -1,9 +1,12 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Navbar } from "./layouts/Navbar";
 import { Formik, Form, Field } from 'formik';
 import * as Yup from 'yup';
+import axios from 'axios';
 
 export const Dashboard = () => {
+    let [ledgers, setLedgers] = useState([]);
+    let [err, setErr] = useState(null);
     let DashSchema = Yup.object().shape({
         oldCode: Yup.string()
             .length(4, 'Old code has to be exactly four characters!')
@@ -15,17 +18,40 @@ export const Dashboard = () => {
             .length(4, 'New  ledger code has to be exactly 4 characters!')
             .required('New ledger code cannot be empty'),
         side: Yup.string()
-            .length(4, 'Not allowed, side has to be two characters Dr/Cr!')
+            .length(2, 'Not allowed, side has to be two characters Dr/Cr!')
             .required('Side cannot be empty'),
     })
-    const handleSubmit = (values) => {
-        console.log(values);
+
+    useEffect(() => {
+        axios.get('http://localhost:5003/api/v1/change', { headers: { Accept: "application/json" } })
+            .then(response => {
+                setLedgers(response.data.ledgers);
+            })
+            .catch(err => {
+                // console.log(err);
+                setErr(err.message);
+            });
+    }, [])
+
+    const handleSubmit = async (values, { resetForm }) => {
+        try {
+            // console.log(values);
+            let res = await axios.post('http://localhost:5003/api/v1/change', values, { headers: { Accept: 'application/json' } });
+            // console.log(res)
+            setLedgers(res.data.ledgers)
+            resetForm();
+        }
+        catch (err) {
+            console.log(err);
+            setErr(err.message);
+        }
     }
 
     return (
         <div className='bg-gray-100 h-screen'>
             <Navbar />
             <div className='w-4/5 mx-auto'>
+                {err ? <div className='text-red-500 text-center border border-red-200 bg-red-100 mt-6 p-2'>{err}</div> : null}
                 <div className="flex flex-col bg-white mt-12 shadow-lg">
                     <div className="-my-2 py-2 overflow-x-auto sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8">
                         <div className="align-middle inline-block min-w-full shadow overflow-hidden sm:rounded-lg border-b border-gray-200">
@@ -33,28 +59,39 @@ export const Dashboard = () => {
                                 <caption className='text-center font-bold text-2xl mb-6'>Ledger Changes</caption>
                                 <thead className='my-8'>
                                     <tr>
-                                        <th></th>
-                                        <th className='uppercase tracking-wide text-gray-700 text-sm font-bold mb-2'>Old GL Code</th>
-                                        <th className='uppercase tracking-wide text-gray-700 text-sm font-bold mb-2'>GL Name</th>
-                                        <th className='uppercase tracking-wide text-gray-700 text-sm font-bold mb-2'>New GL Code</th>
-                                        <th className='uppercase tracking-wide text-gray-700 text-sm font-bold mb-2'>Side</th>
+                                        <th className='uppercase tracking-wider px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-gray-700 text-sm font-bold mb-2'></th>
+                                        <th className='uppercase tracking-wider px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-gray-700 text-sm font-bold mb-2'>Old GL Code</th>
+                                        <th className='uppercase tracking-wider px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-gray-700 text-sm font-bold mb-2'>GL Name</th>
+                                        <th className='uppercase tracking-wider px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-gray-700 text-sm font-bold mb-2'>New GL Code</th>
+                                        <th className='uppercase tracking-wider px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-gray-700 text-sm font-bold mb-2'>Side</th>
                                     </tr>
                                 </thead>
                                 <tbody className='bg-white'>
-                                    <tr>
-                                        <td className='px-6 py-4 whitespace-no-wrap border-b border-gray-200 text-right'>1.</td>
-                                        <td className='px-6 py-4 whitespace-no-wrap border-b border-gray-200 text-center text-xs'>4690</td>
-                                        <td className='px-6 py-4 whitespace-no-wrap border-b border-gray-200 text-center text-xs'>IMTOs</td>
-                                        <td className='px-6 py-4 whitespace-no-wrap border-b border-gray-200 text-center text-xs'>0600</td>
-                                        <td className='px-6 py-4 whitespace-no-wrap border-b border-gray-200 text-center text-xs'>Dr</td>
+                                    {
+                                        ledgers.map((ledger, i) => (
+                                            <tr key={ledger._id.toString()}>
+                                                <td className='px-6 py-4 whitespace-no-wrap border-b border-gray-200 text-right tracking-wider'>{i + 1}</td>
+                                                <td className='px-6 py-4 whitespace-no-wrap border-b border-gray-200 text-left text-sm tracking-wider'>{ledger.old}</td>
+                                                <td className='px-6 py-4 whitespace-no-wrap border-b border-gray-200 text-left text-sm tracking-wider'>{ledger.name}</td>
+                                                <td className='px-6 py-4 whitespace-no-wrap border-b border-gray-200 text-left text-sm tracking-wider'>{ledger.new}</td>
+                                                <td className='px-6 py-4 whitespace-no-wrap border-b border-gray-200 text-left text-sm tracking-wider'>{ledger.side}</td>
+                                            </tr>
+                                        ))
+                                    }
+                                    {/* <tr>
+                                        <td className='px-6 py-4 whitespace-no-wrap border-b border-gray-200 text-right tracking-wider'>1.</td>
+                                        <td className='px-6 py-4 whitespace-no-wrap border-b border-gray-200 text-left text-sm tracking-wider'>4690</td>
+                                        <td className='px-6 py-4 whitespace-no-wrap border-b border-gray-200 text-left text-sm tracking-wider'>IMTOs</td>
+                                        <td className='px-6 py-4 whitespace-no-wrap border-b border-gray-200 text-left text-sm tracking-wider'>0600</td>
+                                        <td className='px-6 py-4 whitespace-no-wrap border-b border-gray-200 text-left text-sm tracking-wider'>Dr</td>
                                     </tr>
                                     <tr>
                                         <td className='px-6 py-4 whitespace-no-wrap border-b border-gray-200 text-right'>2.</td>
-                                        <td className='px-6 py-4 whitespace-no-wrap border-b border-gray-200 text-center text-xs'>0001</td>
-                                        <td className='px-6 py-4 whitespace-no-wrap border-b border-gray-200 text-center text-xs'>Overdraft</td>
-                                        <td className='px-6 py-4 whitespace-no-wrap border-b border-gray-200 text-center text-xs'>0003</td>
-                                        <td className='px-6 py-4 whitespace-no-wrap border-b border-gray-200 text-center text-xs'>Dr</td>
-                                    </tr>
+                                        <td className='px-6 py-4 whitespace-no-wrap border-b border-gray-200 text-left text-sm'>0001</td>
+                                        <td className='px-6 py-4 whitespace-no-wrap border-b border-gray-200 text-left text-sm'>Overdraft</td>
+                                        <td className='px-6 py-4 whitespace-no-wrap border-b border-gray-200 text-left text-sm'>0003</td>
+                                        <td className='px-6 py-4 whitespace-no-wrap border-b border-gray-200 text-left text-sm'>Dr</td>
+                                    </tr> */}
                                 </tbody>
                             </table>
                         </div>
@@ -104,7 +141,7 @@ export const Dashboard = () => {
                                     {errors.side && touched.side ? (<div className='text-red-300'>{errors.side}</div>) : null}
                                 </div>
                                 <div className='flex ml-auto mr-2 my-8'>
-                                    <button className='bg-orange-500 rounded-md px-4 py-2 text-white'>Add Change</button>
+                                    <button type='submit' className='bg-orange-500 rounded-md px-4 py-2 text-white'>Add Change</button>
                                 </div>
                             </div>
                         </Form>
