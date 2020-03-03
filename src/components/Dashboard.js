@@ -6,19 +6,16 @@ import * as Yup from 'yup';
 export const Dashboard = () => {
     let DashSchema = Yup.object().shape({
         oldCode: Yup.string()
-            .test('len', 'Old code has to be exactly four characters!', val => val.length === 4)
+            .length(4, 'Old code has to be exactly four characters!')
             .required('Old ledger code cannot be empty'),
         glName: Yup.string()
             .min(2, 'Too short, Group ledger name has minimum of 2 characters!')
             .required('Group ledger code cannot be empty'),
         finalCode: Yup.string()
-            .test('len', 'New  ledger code has to be exactly 4 characters!', val => val.length === 4)
+            .length(4, 'New  ledger code has to be exactly 4 characters!')
             .required('New ledger code cannot be empty'),
-        // sideCode: Yup.string()
-        //     .min(8, 'Password is too short, minimum of 8 characters!')
-        //     .required('Password cannot be empty'),
         side: Yup.string()
-            .test('len', 'Not allowed, side has to be two characters Dr/Cr!', val => val.length === 2)
+            .length(4, 'Not allowed, side has to be two characters Dr/Cr!')
             .required('Side cannot be empty'),
     })
     const handleSubmit = (values) => {
@@ -29,38 +26,81 @@ export const Dashboard = () => {
         <div className='bg-gray-100 h-screen'>
             <Navbar />
             <div className='w-4/5 mx-auto'>
+                <div className="flex flex-col bg-white mt-12 shadow-lg">
+                    <div className="-my-2 py-2 overflow-x-auto sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8">
+                        <div className="align-middle inline-block min-w-full shadow overflow-hidden sm:rounded-lg border-b border-gray-200">
+                            <table className='min-w-full my-8'>
+                                <caption className='text-center font-bold text-2xl mb-6'>Ledger Changes</caption>
+                                <thead className='my-8'>
+                                    <tr>
+                                        <th></th>
+                                        <th className='uppercase tracking-wide text-gray-700 text-sm font-bold mb-2'>Old GL Code</th>
+                                        <th className='uppercase tracking-wide text-gray-700 text-sm font-bold mb-2'>GL Name</th>
+                                        <th className='uppercase tracking-wide text-gray-700 text-sm font-bold mb-2'>New GL Code</th>
+                                        <th className='uppercase tracking-wide text-gray-700 text-sm font-bold mb-2'>Side</th>
+                                    </tr>
+                                </thead>
+                                <tbody className='bg-white'>
+                                    <tr>
+                                        <td className='px-6 py-4 whitespace-no-wrap border-b border-gray-200 text-right'>1.</td>
+                                        <td className='px-6 py-4 whitespace-no-wrap border-b border-gray-200 text-center text-xs'>4690</td>
+                                        <td className='px-6 py-4 whitespace-no-wrap border-b border-gray-200 text-center text-xs'>IMTOs</td>
+                                        <td className='px-6 py-4 whitespace-no-wrap border-b border-gray-200 text-center text-xs'>0600</td>
+                                        <td className='px-6 py-4 whitespace-no-wrap border-b border-gray-200 text-center text-xs'>Dr</td>
+                                    </tr>
+                                    <tr>
+                                        <td className='px-6 py-4 whitespace-no-wrap border-b border-gray-200 text-right'>2.</td>
+                                        <td className='px-6 py-4 whitespace-no-wrap border-b border-gray-200 text-center text-xs'>0001</td>
+                                        <td className='px-6 py-4 whitespace-no-wrap border-b border-gray-200 text-center text-xs'>Overdraft</td>
+                                        <td className='px-6 py-4 whitespace-no-wrap border-b border-gray-200 text-center text-xs'>0003</td>
+                                        <td className='px-6 py-4 whitespace-no-wrap border-b border-gray-200 text-center text-xs'>Dr</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
                 <Formik
                     initialValues={{
-                        oldColde: '',
+                        oldCode: '',
                         glName: '',
                         finalCode: '',
-                        // sideCode: '',
                         side: ''
                     }}
                     onSubmit={handleSubmit}
                     validationSchema={DashSchema}
                 >
                     {({ errors, touched }) => (
-                        <Form className='bg-white w-full px-12 rounded-lg shadow-xl py-8 mx-auto my-32'>
+                        <Form className='bg-white w-full px-12 rounded-lg shadow-xl py-8 mx-auto mt-8 mb-32'>
+                            <div className='text-center font-bold text-2xl mb-8'>Add New</div>
                             <div className='flex flex-wrap -mx-3 mb-2'>
                                 <div className='w-full md:w-1/5 px-2 mb-6 md:mb-0'>
-                                    <label>Old GL Code</label>
-                                    <Field name='oldCode' type='text' placeholder='' className='h-10 w-full rounded border leading-tight focus:outline-none focus:bg-white focus:border-gray-500' />
+                                    <label className='block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2'>Old GL Code</label>
+                                    <Field name='oldCode' type='text' placeholder='e.g. 4690' className='h-10 w-full rounded border leading-tight focus:outline-none focus:bg-white focus:border-gray-500' />
                                     {errors.oldCode && touched.oldCode ? (<div className='text-red-300'>{errors.oldCode}</div>) : null}
                                 </div>
                                 <div className='w-full md:w-2/5 px-2 mb-6 md:mb-0'>
-                                    <label>GL Name</label>
-                                    <Field type='text' name='glName' placeholder='' className='h-10 w-full rounded border leading-tight focus:outline-none focus:bg-white focus:border-gray-500' />
+                                    <label className='block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2'>GL Name</label>
+                                    <Field type='text' name='glName' placeholder='e.g. IMTOs' className='h-10 w-full rounded border leading-tight focus:outline-none focus:bg-white focus:border-gray-500' />
                                     {errors.glName && touched.glName ? (<div className='text-red-300'>{errors.glName}</div>) : null}
                                 </div>
                                 <div className='w-full md:w-1/5 px-2 mb-6 md:mb-0'>
-                                    <label>Final GL to use</label>
-                                    <Field type='text' name='finalCode' placeholder='' className='h-10 w-full rounded border leading-tight focus:outline-none focus:bg-white focus:border-gray-500 ' />
+                                    <label className='block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2'>Final GL to use</label>
+                                    <Field type='text' name='finalCode' placeholder='e.g. 0600' className='h-10 w-full rounded border leading-tight focus:outline-none focus:bg-white focus:border-gray-500 ' />
                                     {errors.finalCode && touched.finalCode ? (<div className='text-red-300'>{errors.finalCode}</div>) : null}
                                 </div>
                                 <div className='w-full md:w-1/5 px-2 mb-6 md:mb-0'>
-                                    <label>Side(Dr/Cr)</label>
-                                    <Field type='text' name='side' placeholder='' className='h-10 w-full rounded border leading-tight focus:outline-none focus:bg-white focus:border-gray-500' />
+                                    <label className='block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2'>Side</label>
+                                    <div className='block mt-2'>
+                                        <span className='mr-4'>
+                                            <label className='mr-2'>Dr</label>
+                                            <Field type='radio' name='side' value='Dr' />
+                                        </span>
+                                        <span>
+                                            <label className='mr-2'>Cr</label>
+                                            <Field type='radio' name='side' value='Cr' />
+                                        </span>
+                                    </div>
                                     {errors.side && touched.side ? (<div className='text-red-300'>{errors.side}</div>) : null}
                                 </div>
                                 <div className='flex ml-auto mr-2 my-8'>
