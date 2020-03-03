@@ -31,14 +31,14 @@ export const Dashboard = () => {
                 // console.log(err);
                 setErr(err.message);
             });
-    }, [])
+    }, []);
 
     const handleSubmit = async (values, { resetForm }) => {
         try {
             // console.log(values);
             let res = await axios.post('http://localhost:5003/api/v1/change', values, { headers: { Accept: 'application/json' } });
-            // console.log(res)
-            setLedgers(res.data.ledgers)
+            // console.log(res);
+            setLedgers(res.data.ledgers);
             resetForm();
         }
         catch (err) {
