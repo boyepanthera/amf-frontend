@@ -1,10 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import "../output.css";
 import { useDropzone } from "react-dropzone";
 import { LeftPanel } from "./LeftPanel";
 import { Field, Form, Formik } from "formik";
-import { Navbar } from './layouts/Navbar'
-// import { Link } from 'react-router-dom';
+import { Navbar } from "./layouts/Navbar";
+import { AuthContext } from "../App";
 import styled from "styled-components";
 import * as Yup from "yup";
 import axios from "axios";
@@ -27,6 +27,8 @@ const UploadSchema = Yup.object().shape({
 });
 
 export function Parse() {
+  const { state } = useContext(AuthContext);
+  console.log(state);
   const { acceptedFiles, getRootProps, getInputProps } = useDropzone();
   const [loading, setLoading] = useState(false);
   // const [flash,  setFlash] = useState (false);
@@ -39,7 +41,6 @@ export function Parse() {
       {file.path} - {file.size / 1000} kb
     </li>
   ));
-
 
   const handleSubmit = values => {
     console.log(values);
@@ -66,7 +67,11 @@ export function Parse() {
       });
   };
 
-  const Loader = () => <span>Loading...  <i className='fas fa-spinner fa-spin'></i> </span>
+  const Loader = () => (
+    <span>
+      Loading... <i className="fas fa-spinner fa-spin"></i>{" "}
+    </span>
+  );
 
   const ErrFlash = () => (
     <div
@@ -106,10 +111,10 @@ export function Parse() {
   if (submitted) {
     return (
       <div className="App h-full">
-        <div className='w-full'>
+        <div className="w-full">
           <Navbar />
         </div>
-        <div className='w-full flex flex-wrap'>
+        <div className="w-full flex flex-wrap">
           <div className="bg-gray-300 w-1/2 ">
             <LeftPanel />
           </div>
@@ -120,10 +125,17 @@ export function Parse() {
                   Voila! Parsing Done...
                 </div>
               </div>
-              <div className="mx-10 py-24 rounded-b-full" >
-                <div onClick={downloadFile} className="border-dashed  border-2 items-center justify-center border-orange-300 py-8 px-3">
+              <div className="mx-10 py-24 rounded-b-full">
+                <div
+                  onClick={downloadFile}
+                  className="border-dashed  border-2 items-center justify-center border-orange-300 py-8 px-3"
+                >
                   <div className="items-center flex justify-center text-orange-500">
-                    <CloudDownloadIcon className='mx-auto ' color="inherit" fontSize="large" />
+                    <CloudDownloadIcon
+                      className="mx-auto "
+                      color="inherit"
+                      fontSize="large"
+                    />
                   </div>
                   <p className="text-center text-xs text-purple-600">
                     {response}
@@ -138,10 +150,10 @@ export function Parse() {
   } else {
     return (
       <div className="App  h-screen">
-        <div className='w-full'>
+        <div className="w-full">
           <Navbar />
         </div>
-        <div className='w-full flex flex-wrap'>
+        <div className="w-full flex flex-wrap">
           <div className="w-2/5">
             <LeftPanel />
           </div>
@@ -162,7 +174,7 @@ export function Parse() {
                     <div className="bg-orange-500  p-5">
                       <div className="text-white md:text-base text-center capitalize font-bold text-2xl">
                         The Magic Happens here!
-                    </div>
+                      </div>
                     </div>
                     <div className="px-12 md:px-6 py-2 my-6">
                       <div className="mb-8">
@@ -173,6 +185,7 @@ export function Parse() {
                           name="name"
                           className="bg-white focus:outline-none focus:shadow-outline border border-gray-300 rounded-xs py-2 px-4 block w-full appearance-none leading-normal mb-2"
                           placeholder="e.g.  John Jude"
+                          value={state.user.firstName}
                         />
                         {errors.name && touched.name ? (
                           <Err className="text-sm">{errors.name}</Err>
@@ -181,12 +194,13 @@ export function Parse() {
                       <div className="mb-8">
                         <label className="text-xs" htmlFor="email">
                           Email
-                      </label>
+                        </label>
                         <Field
                           name="email"
                           type="email"
                           className="bg-white focus:outline-none focus:shadow-outline border border-gray-300 rounded-xs py-2 px-4 block w-full appearance-none leading-normal mb-2"
                           placeholder="e.g. johnjude@gtbank.com"
+                          value={state.user.email}
                         />
                         {errors.email && touched.email ? (
                           <Err className="text-sm">{errors.email}</Err>
@@ -202,7 +216,7 @@ export function Parse() {
                             className="hidden focus:outline-none"
                             type="file"
                             {...getInputProps({
-                              onChange: function (e) {
+                              onChange: function(e) {
                                 setFieldValue("file", e.currentTarget.files[0]);
                                 setFileUp(true);
                               }
@@ -213,10 +227,10 @@ export function Parse() {
                               {files}
                             </ul>
                           ) : (
-                              <p className="text-center focus:outline-none md:text-xs text-sm p-4 text-blue-300">
-                                Drag and drop files or click to browse
-                          </p>
-                            )}
+                            <p className="text-center focus:outline-none md:text-xs text-sm p-4 text-blue-300">
+                              Drag and drop files or click to browse
+                            </p>
+                          )}
                           {errors.file && touched.file ? (
                             <Err className="text sm">{errors.file}</Err>
                           ) : null}
