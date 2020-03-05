@@ -5,6 +5,7 @@ import { Link, useHistory } from "react-router-dom";
 import * as Yup from "yup";
 import Axios from "axios";
 import { AuthContext } from "../App";
+import { ErrFlash } from "../utils";
 
 export const Login = () => {
   const { state, dispatch } = useContext(AuthContext);
@@ -18,32 +19,39 @@ export const Login = () => {
       .required("Password cannot be empty")
       .matches(/[a-zA-Z]/, "Password can only contain latin letters")
   });
-  const handleSubmit = async (values, { resetForm }) => {
-    try {
-      // console.log(values);
-      let response = await Axios.post(
-        "http://localhost:5003/api/v1/auth",
-        values,
-        { headers: { Accept: "application/json" } }
-      );
-      // console.log(response);
-      dispatch({ type: "LOGIN", payload: response.data });
-      resetForm();
-      history.push("/dashboard");
-    } catch (err) {
-      dispatch({ type: "ERR", payload: `${err.message}` });
-      setTimeout(() => dispatch({ type: "default" }), 5000);
-      console.log(err.message);
-      console.log(err);
-    }
+
+  const handleSubmit = (values, { resetForm }) => {
+    Axios.post(
+      "http://localhost:5003/api/v1/auth",
+      values,
+      { headers: { Accept: "application/json" } }
+    ).then(response => {
+      console.log(response);
+      if (response.status === 200) {
+        dispatch({ type: "LOGIN", payload: response.data });
+        resetForm();
+        history.push("/dashboard");
+      } else {
+        console.log(response)
+        dispatch({ type: "ERR", payload: `${response.data.message}. There was an issue trying to log you in` });
+        setTimeout(() => dispatch({ type: "default" }), 5000);
+      }
+    })
+      .catch(err => {
+        // console.log(err.response);
+        dispatch({ type: "ERR", payload: `${err.response.data}. There was an issue trying to log you in` });
+        setTimeout(() => dispatch({ type: "default" }), 5000);
+      })
   };
 
   return (
     <div className="bg-gray-200 h-screen">
       <Navbar />
-      <div className="bg-red-50 text-center border border-red-300 text-red-500 text-sm">
-        {state.err ? state.err : null}
-      </div>
+      {state.err ?
+        (
+          <ErrFlash err={state.err} />
+        )
+        : null}
       <div>
         <Formik
           initialValues={{

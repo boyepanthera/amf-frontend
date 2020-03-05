@@ -1,9 +1,11 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Navbar } from "./layouts/Navbar";
 import { Form, Field, Formik } from "formik";
 import { Link, useHistory } from "react-router-dom";
 import * as Yup from "yup";
 import axios from "axios";
+import { AuthContext } from '../App';
+import { ErrFlash } from '../utils/index';
 
 const SignupSchema = Yup.object().shape({
   firstName: Yup.string()
@@ -15,7 +17,7 @@ const SignupSchema = Yup.object().shape({
     .max(50, "Name cannot be longer than 50characters")
     .required("Last Name is required"),
   email: Yup.string()
-    .email("Not a valid mail format")
+    .email("Not a valid mail")
     .required("Email is required field"),
   password: Yup.string()
     .min(8, "Password is too short, minimum of 8 characters!")
@@ -32,6 +34,7 @@ const SignupSchema = Yup.object().shape({
 
 export const Signup = () => {
   let history = useHistory();
+  const { state, dispatch } = useContext(AuthContext);
   const handleSubmit = async (values, { resetForm }) => {
     try {
       let response = await axios.post(
@@ -43,12 +46,21 @@ export const Signup = () => {
       resetForm();
       history.push("/auth");
     } catch (err) {
-      // console.log(err);
+      if (err.response) {
+        console.log(err.response.data);
+        dispatch({ type: "ERR", payload: `There was an issue signing you up. ${err.response.data}` })
+        setTimeout(() => dispatch({ type: "default" }), 5000);
+      }
     }
   };
   return (
     <div className="bg-gray-100 h-screen">
       <Navbar />
+      {state.err ?
+        (
+          <ErrFlash err={state.err} />
+        )
+        : null}
       <div>
         <Formik
           onSubmit={handleSubmit}
