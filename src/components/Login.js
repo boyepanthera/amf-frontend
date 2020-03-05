@@ -26,16 +26,10 @@ export const Login = () => {
       values,
       { headers: { Accept: "application/json" } }
     ).then(response => {
-      console.log(response);
-      if (response.status === 200) {
-        dispatch({ type: "LOGIN", payload: response.data });
-        resetForm();
-        history.push("/dashboard");
-      } else {
-        console.log(response)
-        dispatch({ type: "ERR", payload: `${response.data.message}. There was an issue trying to log you in` });
-        setTimeout(() => dispatch({ type: "default" }), 5000);
-      }
+      // console.log(response);
+      dispatch({ type: "LOGIN", payload: response.data });
+      resetForm();
+      history.push("/dashboard");
     })
       .catch(err => {
         // console.log(err.response);

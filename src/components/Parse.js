@@ -51,12 +51,11 @@ export function Parse() {
     data.append("email", email);
     data.append("file", file);
     axios
-      .post("http://localhost:5003/amf/csv", data, {
+      .post("http://localhost:5003/amf/parse", data, {
         headers: { Accept: "multipart/form-data" }
       })
       .then(response => {
         console.log(response);
-        // console.log(response.data.downloadPath);
         setSubmit(true);
         setResponse(response.data.downloadPath);
       })
@@ -119,7 +118,7 @@ export function Parse() {
             <LeftPanel />
           </div>
           <div className="w-1/2 bg-gray-100 justify-center">
-            <div className="bg-white mx-auto w-1/2 mt-40 shadow-lg rounded-b-lg">
+            <div className="bg-white mx-auto w-1/2 mt-20 shadow-lg rounded-b-lg">
               <div className="bg-orange-500  p-5">
                 <div className="text-white text-center capitalize font-bold text-2xl">
                   Voila! Parsing Done...
@@ -172,35 +171,35 @@ export function Parse() {
                 {({ errors, touched, setFieldValue }) => (
                   <Form className="rounded-b-full shadow-lg bg-white pb-8 mx-auto mt-0 mb-24 max-md w-2/5">
                     <div className="bg-orange-500  p-5">
-                      <div className="text-white md:text-base text-center capitalize font-bold text-2xl">
+                      <div className="text-white md:text-xl text-center capitalize font-bold">
                         The Magic Happens here!
                       </div>
                     </div>
                     <div className="px-12 md:px-6 py-2 my-6">
-                      <div className="mb-8">
+                      <div className="mb-4">
                         <label className="text-xs" htmlFor="name">
                           Name
                         </label>
                         <Field
                           name="name"
-                          className="bg-white focus:outline-none focus:shadow-outline border border-gray-300 rounded-xs py-2 px-4 block w-full appearance-none leading-normal mb-2"
+                          className=" bg-white focus:outline-none focus:shadow-outline border border-gray-300 rounded-xs py-1 px-4 block w-full appearance-none leading-normal mb-2"
                           placeholder="e.g.  John Jude"
-                          value={state.user.firstName}
+                        // value={state.user.firstName}
                         />
                         {errors.name && touched.name ? (
                           <Err className="text-sm">{errors.name}</Err>
                         ) : null}
                       </div>
-                      <div className="mb-8">
+                      <div className="mb-4">
                         <label className="text-xs" htmlFor="email">
                           Email
                         </label>
                         <Field
                           name="email"
                           type="email"
-                          className="bg-white focus:outline-none focus:shadow-outline border border-gray-300 rounded-xs py-2 px-4 block w-full appearance-none leading-normal mb-2"
+                          className=" bg-white focus:outline-none focus:shadow-outline border border-gray-300 rounded-xs py-1 px-4 block w-full appearance-none leading-normal mb-2"
                           placeholder="e.g. johnjude@gtbank.com"
-                          value={state.user.email}
+                        // value={state.user.email}
                         />
                         {errors.email && touched.email ? (
                           <Err className="text-sm">{errors.email}</Err>
@@ -216,7 +215,7 @@ export function Parse() {
                             className="hidden focus:outline-none"
                             type="file"
                             {...getInputProps({
-                              onChange: function(e) {
+                              onChange: function (e) {
                                 setFieldValue("file", e.currentTarget.files[0]);
                                 setFileUp(true);
                               }
@@ -227,10 +226,10 @@ export function Parse() {
                               {files}
                             </ul>
                           ) : (
-                            <p className="text-center focus:outline-none md:text-xs text-sm p-4 text-blue-300">
-                              Drag and drop files or click to browse
+                              <p className="text-center focus:outline-none md:text-xs text-sm p-4 text-blue-300">
+                                Drag and drop files or click to browse
                             </p>
-                          )}
+                            )}
                           {errors.file && touched.file ? (
                             <Err className="text sm">{errors.file}</Err>
                           ) : null}
