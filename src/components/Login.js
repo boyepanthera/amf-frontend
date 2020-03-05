@@ -32,6 +32,7 @@ export const Login = () => {
       history.push("/dashboard");
     } catch (err) {
       dispatch({ type: "ERR", payload: `${err.message}` });
+      setTimeout(() => dispatch({ type: "default" }), 5000);
       console.log(err.message);
       console.log(err);
     }

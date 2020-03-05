@@ -9,16 +9,16 @@ export const Protector = ({ component: Component, ...rest }) => {
     <Route
       {...rest}
       render={({ location }) =>
-        authToken && state.isLoggedIn ? (
+        state.isLoggedIn && authToken ? (
           <Component />
         ) : (
-          <Redirect
-            to={{
-              pathname: "/auth",
-              state: { from: location }
-            }}
-          />
-        )
+            <Redirect
+              to={{
+                pathname: "/auth",
+                state: { from: location }
+              }}
+            />
+          )
       }
     />
   );

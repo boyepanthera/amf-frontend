@@ -51,7 +51,9 @@ const reducer = (state, action) => {
         success: action.payload.message
       };
     default:
-      return state;
+      return {
+        initialState
+      };
   }
 };
 
