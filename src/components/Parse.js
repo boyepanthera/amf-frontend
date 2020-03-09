@@ -55,14 +55,19 @@ export function Parse() {
         headers: { Accept: "multipart/form-data" }
       })
       .then(response => {
-        console.log(response);
+        // console.log(response);
         setSubmit(true);
         setResponse(response.data.downloadPath);
       })
       .catch(err => {
-        setErr(err);
-        setLoading(false);
-        setTimeout(() => setErr(false), 5000);
+        if (err.response) {
+          setErr(err.response.data);
+          setLoading(false);
+          setTimeout(() => setErr(false), 5000);
+        } else {
+          setErr('Unable to connect to API server!');
+          setTimeout(() => setErr(false), 5000);
+        }
       });
   };
 
@@ -77,7 +82,7 @@ export function Parse() {
       className="bg-red-100 mb-0 border border-red-400 text-red-700 px-4 py-3 rounded relative"
       role="alert"
     >
-      <strong className="font-bold ">{err.message} </strong>
+      <strong className="font-bold ">{err} </strong>
       <span className="block sm:inline text-sm"> There was an issue.</span>
       <span
         onClick={() => setErr(false)}
