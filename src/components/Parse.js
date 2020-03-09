@@ -43,7 +43,7 @@ export function Parse() {
   ));
 
   const handleSubmit = values => {
-    console.log(values);
+    // console.log(values);
     setLoading(true);
     const { name, email, file } = values;
     const data = new FormData();
@@ -51,7 +51,7 @@ export function Parse() {
     data.append("email", email);
     data.append("file", file);
     axios
-      .post("http://localhost:5003/amf/parse", data, {
+      .post("http://localhost:5003/api/v1/amf/parse", data, {
         headers: { Accept: "multipart/form-data" }
       })
       .then(response => {
