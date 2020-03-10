@@ -33,8 +33,14 @@ export const Login = () => {
     })
       .catch(err => {
         // console.log(err.response);
-        dispatch({ type: "ERR", payload: `${err.response.data}. There was an issue trying to log you in` });
-        setTimeout(() => dispatch({ type: "default" }), 5000);
+        if (err.response) {
+          dispatch({ type: "ERR", payload: `${err.response.data}. There was an issue trying to log you in` });
+          setTimeout(() => dispatch({ type: "default" }), 5000);
+        } else {
+          dispatch({ type: "ERR", payload: `There was an issue connecting you to login server` });
+          setTimeout(() => dispatch({ type: "default" }), 5000);
+        }
+
       })
   };
 

@@ -5,8 +5,10 @@ import * as Yup from "yup";
 import axios from "axios";
 
 export const Dashboard = () => {
+
   let [ledgers, setLedgers] = useState([]);
   let [err, setErr] = useState(null);
+  let [success, setSuccess] = useState(null);
   let DashSchema = Yup.object().shape({
     oldCode: Yup.string()
       .length(4, "Old code has to be exactly four characters!")
@@ -53,6 +55,28 @@ export const Dashboard = () => {
     }
   };
 
+  // const deleteFilter = id => {
+  //   setLedgers(ledgers.filter(ledger => ledger._id !== id))
+  // }
+
+  const handleDelete = async event => {
+    try {
+      event.persist();
+      let res = await axios.delete(`http://localhost:5003/api/v1/change/${event.target.id}`, { headers: { Accept: "application/json" } });
+      setSuccess(res.data.message);
+      setLedgers(ledgers.filter(ledger =>
+        ledger._id !== parseInt(event.target.id)));
+    } catch (err) {
+      if (err.response) {
+        setErr(err.response.data.message)
+        setTimeout(() => setErr(null), 5000)
+      } else {
+        setErr('Unable to connect to server for deleting!')
+        setTimeout(() => setErr(null), 5000)
+      }
+    }
+  }
+
   return (
     <div className="bg-gray-100 h-screen">
       <Navbar />
@@ -60,6 +84,11 @@ export const Dashboard = () => {
         {err ? (
           <div className="text-red-500 text-center border border-red-200 bg-red-100 mt-6 p-2">
             {err}
+          </div>
+        ) : null}
+        {success ? (
+          <div className="text-blue-500 text-center border border-blue-200 bg-blue-100 mt-6 p-2">
+            {success}
           </div>
         ) : null}
         <div className="flex flex-col bg-white mt-12 shadow-lg">
@@ -84,6 +113,7 @@ export const Dashboard = () => {
                     <th className="uppercase tracking-wider px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-gray-700 text-sm font-bold mb-2">
                       Side
                     </th>
+                    <th></th>
                   </tr>
                 </thead>
                 <tbody className="bg-white">
@@ -103,6 +133,9 @@ export const Dashboard = () => {
                       </td>
                       <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200 text-left text-sm tracking-wider">
                         {ledger.side}
+                      </td>
+                      <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200 text-left text-sm tracking-wider">
+                        <button onClick={handleDelete} id={ledger._id} className='rounded focus:outline-none rounded-md bg-red-600 text-xs text-white px-2 py-1'>Delete</button>
                       </td>
                     </tr>
                   ))}
