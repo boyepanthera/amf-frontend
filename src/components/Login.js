@@ -5,7 +5,7 @@ import { Link, useHistory } from "react-router-dom";
 import * as Yup from "yup";
 import Axios from "axios";
 import { AuthContext } from "../App";
-import { ErrFlash } from "../utils";
+import { ErrFlash, SuccessFlash } from "../utils";
 
 export const Login = () => {
   const { state, dispatch } = useContext(AuthContext);
@@ -29,7 +29,7 @@ export const Login = () => {
       // console.log(response);
       dispatch({ type: "LOGIN", payload: response.data });
       resetForm();
-      history.push("/dashboard");
+      setTimeout(() => history.push("/dashboard"), 1000);
     })
       .catch(err => {
         // console.log(err.response);
@@ -50,6 +50,11 @@ export const Login = () => {
       {state.err ?
         (
           <ErrFlash err={state.err} />
+        )
+        : null}
+      {state.success ?
+        (
+          <SuccessFlash success={state.success} />
         )
         : null}
       <div>

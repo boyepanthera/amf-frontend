@@ -55,10 +55,6 @@ export const Dashboard = () => {
     }
   };
 
-  // const deleteFilter = id => {
-  //   setLedgers(ledgers.filter(ledger => ledger._id !== id))
-  // }
-
   const handleDelete = async event => {
     try {
       event.persist();
@@ -66,6 +62,7 @@ export const Dashboard = () => {
       setSuccess(res.data.message);
       setLedgers(ledgers.filter(ledger =>
         ledger._id !== parseInt(event.target.id)));
+      setTimeout(() => setSuccess(null), 3000)
     } catch (err) {
       if (err.response) {
         setErr(err.response.data.message)
@@ -82,12 +79,12 @@ export const Dashboard = () => {
       <Navbar />
       <div className="w-4/5 mx-auto">
         {err ? (
-          <div className="text-red-500 text-center border border-red-200 bg-red-100 mt-6 p-2">
+          <div className="text-red-500 text-center text-xs border border-red-200 bg-red-100 mt-6 py-1 rounded rounded-sm">
             {err}
           </div>
         ) : null}
         {success ? (
-          <div className="text-blue-500 text-center border border-blue-200 bg-blue-100 mt-6 p-2">
+          <div className="text-blue-500 text-center text-xs border border-blue-200 bg-blue-100 mt-6 py-1 rounded rounded-sm">
             {success}
           </div>
         ) : null}

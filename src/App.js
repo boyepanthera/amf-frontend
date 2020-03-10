@@ -28,7 +28,7 @@ const reducer = (state, action) => {
         user: action.payload.user,
         token: action.payload.token,
         err: null,
-        success: null
+        success: action.payload.message
       };
     case "LOGOUT":
       localStorage.clear();

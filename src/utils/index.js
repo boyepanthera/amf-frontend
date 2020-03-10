@@ -7,3 +7,11 @@ export const ErrFlash = (props) => {
         </div>
     )
 }
+
+export const SuccessFlash = (props) => {
+    return (
+        <div className="bg-blue-100 w-3/5 mx-auto my-8 text-center rounded-md border border-blue-300 text-blue-500 text-sm">
+            {props.success}
+        </div>
+    )
+}
