@@ -1,6 +1,7 @@
 module.exports = {
     variants: {
         opacity: ['responsive', 'hover', 'focus', 'disabled'],
+        borderWidth: ['responsive', 'even', 'odd', 'hover', 'focus'],
     },
     theme: {
         fontSize: {

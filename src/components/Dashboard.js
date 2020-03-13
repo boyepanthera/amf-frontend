@@ -110,7 +110,7 @@ export const Dashboard = () => {
                     <th className="uppercase tracking-wider px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-gray-700 text-sm font-bold mb-2">
                       Side
                     </th>
-                    <th></th>
+                    <th className=' border-b border-gray-200'></th>
                   </tr>
                 </thead>
                 <tbody className="bg-white">
@@ -132,7 +132,7 @@ export const Dashboard = () => {
                         {ledger.side}
                       </td>
                       <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200 text-left text-sm tracking-wider">
-                        <button onClick={handleDelete} id={ledger._id} className='rounded focus:outline-none rounded-md bg-red-600 text-xs text-white px-2 py-1'>Delete</button>
+                        <button onClick={handleDelete} id={ledger._id} className='rounded focus:outline-none rounded-md focus:outline-none hover:bg-red-800 bg-red-600 text-xs text-white px-2 py-1'>Delete <i className='fas fa-trash-alt'></i> </button>
                       </td>
                     </tr>
                   ))}

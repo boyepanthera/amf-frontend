@@ -2,7 +2,7 @@ import React, { useState, useContext } from "react";
 import "../output.css";
 import { useDropzone } from "react-dropzone";
 import { LeftPanel } from "./LeftPanel";
-import { Field, Form, Formik } from "formik";
+import { Form, Formik } from "formik";
 import { Navbar } from "./layouts/Navbar";
 import { AuthContext } from "../App";
 import styled from "styled-components";
@@ -16,19 +16,12 @@ const Err = styled.div({
 });
 
 const UploadSchema = Yup.object().shape({
-  name: Yup.string()
-    .min(3, "Too Short! Name cannot be less than 3 characters")
-    .max(40, "Too Long! Name cannot be longer than 40 characters")
-    .required("Required Name is required"),
   file: Yup.string().required("Required, a file needs to be attached!"),
-  email: Yup.string()
-    .email("This is not a valid email")
-    .required("Email is a required field")
 });
 
 export function Parse() {
   const { state } = useContext(AuthContext);
-  console.log(state);
+  // console.log(state);
   const { acceptedFiles, getRootProps, getInputProps } = useDropzone();
   const [loading, setLoading] = useState(false);
   // const [flash,  setFlash] = useState (false);
@@ -166,51 +159,20 @@ export function Parse() {
               <div className="mt-20 mb-4">{err ? <ErrFlash /> : null}</div>
               <Formik
                 initialValues={{
-                  name: "",
-                  email: "",
                   file: {}
                 }}
                 validationSchema={UploadSchema}
                 onSubmit={handleSubmit}
               >
                 {({ errors, touched, setFieldValue }) => (
-                  <Form className="rounded-b-full shadow-lg bg-white pb-8 mx-auto mt-0 mb-24 max-md w-2/5">
+                  <Form className="rounded-b-full shadow-lg bg-white pb-8 mx-auto sm:mt-20 mb-30 max-md w-2/5">
                     <div className="bg-orange-500  p-5">
-                      <div className="text-white md:text-xl text-center capitalize font-bold">
+                      <div className="text-white sm:text-xl text-center capitalize font-bold">
                         The Magic Happens here!
                       </div>
                     </div>
-                    <div className="px-12 md:px-6 py-2 my-6">
-                      <div className="mb-4">
-                        <label className="text-xs" htmlFor="name">
-                          Name
-                        </label>
-                        <Field
-                          name="name"
-                          className=" bg-white focus:outline-none focus:shadow-outline border border-gray-300 rounded-xs py-1 px-4 block w-full appearance-none leading-normal mb-2"
-                          placeholder="e.g.  John Jude"
-                        // value={state.user.firstName}
-                        />
-                        {errors.name && touched.name ? (
-                          <Err className="text-sm">{errors.name}</Err>
-                        ) : null}
-                      </div>
-                      <div className="mb-4">
-                        <label className="text-xs" htmlFor="email">
-                          Email
-                        </label>
-                        <Field
-                          name="email"
-                          type="email"
-                          className=" bg-white focus:outline-none focus:shadow-outline border border-gray-300 rounded-xs py-1 px-4 block w-full appearance-none leading-normal mb-2"
-                          placeholder="e.g. johnjude@gtbank.com"
-                        // value={state.user.email}
-                        />
-                        {errors.email && touched.email ? (
-                          <Err className="text-sm">{errors.email}</Err>
-                        ) : null}
-                      </div>
-                      <div className="border-dashed focus:outline-none h-20 border-orange-300 border-2 mt-6 ">
+                    <div className="px-12 sm:px-6 py-2 my-6">
+                      <div className="border-dashed focus:outline-none h-20 border-orange-300 border-2 mt-12 ">
                         <div
                           className="focus:outline-none"
                           {...getRootProps({ className: "dropzone" })}
@@ -231,9 +193,9 @@ export function Parse() {
                               {files}
                             </ul>
                           ) : (
-                              <p className="text-center focus:outline-none md:text-xs text-sm p-4 text-blue-300">
+                              <div className="text-center focus:outline-none py-8 md:text-xs text-sm m-auto text-blue-300">
                                 Drag and drop files or click to browse
-                            </p>
+                            </div>
                             )}
                           {errors.file && touched.file ? (
                             <Err className="text sm">{errors.file}</Err>
@@ -243,7 +205,7 @@ export function Parse() {
                       <div className="mt-12 justify-center flex h-10">
                         <button
                           type="submit"
-                          className="w-full md:text-xs font-bold bg-orange-500 mx-8 rounded-full hover:bg-orange-300 focus:outline-none shadow-2xl text-white"
+                          className="w-3/4 md:text-xs font-bold bg-orange-500 mx-8 rounded-full hover:bg-orange-300 focus:outline-none shadow-2xl text-white"
                         >
                           {loading ? <Loader /> : "Parse AMF"}
                         </button>
