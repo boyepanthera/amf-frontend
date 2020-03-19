@@ -1,10 +1,9 @@
-import React, { useState, useContext } from "react";
+import React, { useState } from "react";
 import "../output.css";
 import { useDropzone } from "react-dropzone";
 import { LeftPanel } from "./LeftPanel";
 import { Form, Formik } from "formik";
 import { Navbar } from "./layouts/Navbar";
-import { AuthContext } from "../App";
 import styled from "styled-components";
 import * as Yup from "yup";
 import axios from "axios";
@@ -20,7 +19,7 @@ const UploadSchema = Yup.object().shape({
 });
 
 export function Parse() {
-  const { state } = useContext(AuthContext);
+  // const { state } = useContext(AuthContext);
   // console.log(state);
   const { acceptedFiles, getRootProps, getInputProps } = useDropzone();
   const [loading, setLoading] = useState(false);
@@ -89,7 +88,7 @@ export function Parse() {
         >
           <title>Close</title>
           <path d="M14.348 14.849a1.2 1.2 0 0 1-1.697 0L10 11.819l-2.651 3.029a1.2 1.2 0 1 1-1.697-1.697l2.758-3.15-2.759-3.152a1.2 1.2 0 1 1 1.697-1.697L10 8.183l2.651-3.031a1.2 1.2 0 1 1 1.697 1.697l-2.758 3.152 2.758 3.15a1.2 1.2 0 0 1 0 1.698z" />
-        </svg>
+        </svg>  
       </span>
     </div>
   );
@@ -167,7 +166,7 @@ export function Parse() {
                 {({ errors, touched, setFieldValue }) => (
                   <Form className="rounded-b-full shadow-lg bg-white pb-8 mx-auto sm:mt-20 mb-30 max-md w-2/5">
                     <div className="bg-orange-500  p-5">
-                      <div className="text-white sm:text-xl text-center capitalize font-bold">
+                      <div className="text-white sm:text-xl uppercase text-center  font-bold">
                         The Magic Happens here!
                       </div>
                     </div>
@@ -193,9 +192,10 @@ export function Parse() {
                               {files}
                             </ul>
                           ) : (
-                              <div className="text-center focus:outline-none py-8 md:text-xs text-sm m-auto text-blue-300">
-                                Drag and drop files or click to browse
-                            </div>
+                              <div className="text-center focus:outline-none pt-6 md:text-xs text-sm m-auto text-blue-300">
+                                <i className="fas text-2xl fa-upload"></i> 
+                                <p className='pb-3'>Drag and drop files or click to browse</p>
+                              </div>
                             )}
                           {errors.file && touched.file ? (
                             <Err className="text sm">{errors.file}</Err>
@@ -205,7 +205,7 @@ export function Parse() {
                       <div className="mt-12 justify-center flex h-10">
                         <button
                           type="submit"
-                          className="w-3/4 md:text-xs font-bold bg-orange-500 mx-8 rounded-full hover:bg-orange-300 focus:outline-none shadow-2xl text-white"
+                          className="w-3/4 sm:text-xs uppercase font-bold bg-orange-500 mx-8 rounded-full hover:bg-orange-300 focus:outline-none shadow-2xl text-white"
                         >
                           {loading ? <Loader /> : "Parse AMF"}
                         </button>

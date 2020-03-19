@@ -3,9 +3,9 @@ import { Navbar } from "./layouts/Navbar";
 import { Formik, Form, Field } from "formik";
 import * as Yup from "yup";
 import axios from "axios";
+// import {AuthContext} from '../App';
 
 export const Dashboard = () => {
-
   let [ledgers, setLedgers] = useState([]);
   let [err, setErr] = useState(null);
   let [success, setSuccess] = useState(null);
@@ -33,20 +33,17 @@ export const Dashboard = () => {
         setLedgers(response.data.ledgers);
       })
       .catch(err => {
-        // console.log(err);
         setErr(err.message);
       });
   }, []);
 
   const handleSubmit = async (values, { resetForm }) => {
     try {
-      // console.log(values);
       let res = await axios.post(
         "http://localhost:5003/api/v1/change",
         values,
         { headers: { Accept: "application/json" } }
       );
-      // console.log(res);
       setLedgers(res.data.ledgers);
       resetForm();
     } catch (err) {
@@ -92,7 +89,7 @@ export const Dashboard = () => {
           <div className="-my-2 py-2 overflow-x-auto sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8">
             <div className="align-middle inline-block min-w-full shadow overflow-hidden sm:rounded-lg border-b border-gray-200">
               <table className="min-w-full my-8">
-                <caption className="text-center font-bold text-2xl mb-6">
+                <caption className="text-center font-bold text-2xl uppercase mb-6">
                   Ledger Changes
                 </caption>
                 <thead className="my-8">
@@ -141,6 +138,16 @@ export const Dashboard = () => {
             </div>
           </div>
         </div>
+        {err ? (
+          <div className="text-red-500 text-center text-xs border border-red-200 bg-red-100 mt-6 py-1 rounded rounded-sm">
+            {err}
+          </div>
+        ) : null}
+        {success ? (
+          <div className="text-blue-500 text-center text-xs border border-blue-200 bg-blue-100 mt-6 py-1 rounded rounded-sm">
+            {success}
+          </div>
+        ) : null}
         <Formik
           initialValues={{
             oldCode: "",
@@ -153,7 +160,7 @@ export const Dashboard = () => {
         >
           {({ errors, touched }) => (
             <Form className="bg-white w-full px-12 rounded-lg shadow-xl py-6 mx-auto mt-8 mb-32">
-              <div className="text-center font-bold text-2xl mb-8">Add New</div>
+              <div className="text-center font-bold text-xl uppercase mb-8">Add New</div>
               <div className="flex flex-wrap -mx-3 mb-2">
                 <div className="w-full md:w-1/5 px-2 mb-6 md:mb-0">
                   <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
@@ -220,7 +227,7 @@ export const Dashboard = () => {
                     type="submit"
                     className="bg-orange-500 rounded-md px-4 py-2 text-white"
                   >
-                    Add Change
+                   <i className="fas fa-plus-square "></i> Add Change 
                   </button>
                 </div>
               </div>

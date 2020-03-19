@@ -4,7 +4,8 @@ import { AuthContext } from "../../App";
 
 export const Navbar = () => {
   let history = useHistory();
-  const { state, dispatch } = useContext(AuthContext);
+  const { dispatch } = useContext(AuthContext);
+  const user  = JSON.parse(localStorage.getItem('user'));
   const handleLogout = () => {
     dispatch({ type: "LOGOUT" });
     history.push("/auth");
@@ -35,7 +36,7 @@ export const Navbar = () => {
       </div>
       <div className="w-full block flex-grow lg:flex lg:items-center lg:w-auto  ml-auto">
         <div className="text-sm justify-end flex mr-8 lg:flex-grow">
-          {state.isLoggedIn ? (
+          {user ? (
             <>
               <div className="mt-1">
                 <Link
@@ -45,6 +46,12 @@ export const Navbar = () => {
                   Parse
                 </Link>
                 <Link
+                  to="/responsive"
+                  className="block mt-4 lg:inline-block lg:mt-0 text-white hover:text-white mr-4"
+                >
+                  Responsive
+                </Link>
+                <Link
                   to="/dashboard"
                   className="block mt-4 lg:inline-block lg:mt-0 text-white hover:text-white mr-4"
                 >
@@ -52,7 +59,7 @@ export const Navbar = () => {
                 </Link>
                 <span className="block mt-4 lg:inline-block lg:mt-0 text-white hover:text-white mr-4">
                   <i className="fas fa-user text-white"></i> LoggedIn as{" "}
-                  {state.user.firstName}
+                  {user.firstName}
                 </span>
               </div>
               <button
