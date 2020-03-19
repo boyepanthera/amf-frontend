@@ -3,7 +3,6 @@ import { Navbar } from "./layouts/Navbar";
 import { Formik, Form, Field } from "formik";
 import * as Yup from "yup";
 import axios from "axios";
-// import {AuthContext} from '../App';
 
 export const Dashboard = () => {
   let [ledgers, setLedgers] = useState([]);
