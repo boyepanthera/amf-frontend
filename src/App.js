@@ -8,7 +8,6 @@ import { Home } from "./components/Home";
 import { Switch, Route } from "react-router-dom";
 import { Dashboard } from "./components/Dashboard";
 import { Test } from "./components/Test";
-// import {Responsive} from './components/Responsive'
 export const AuthContext = createContext();
 
 const initialState = {
