@@ -8,7 +8,7 @@ const calc = (x, y) => [-(y - window.innerHeight / 2) / 20, (x - window.innerWid
 const trans = (x, y, s) => `perspective(600px) rotateX(${x}deg) rotateY(${y}deg) scale(${s})`
 
 export const Home = () => {
-    const [props, set] = useSpring(() => ({ xys: [0, 0, 1], config: { mass: 205, tension: 200, friction: 400 } }))
+    const [props, set] = useSpring(() => ({ xys: [0, 0, 1], config: { mass: 5, tension: 400, friction: 400 } }))
     return (
         <div className='bg-gray-100 h-screen'>
             <Navbar />
