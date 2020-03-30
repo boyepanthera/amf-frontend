@@ -226,7 +226,7 @@ export const Dashboard = () => {
                     type="submit"
                     className="bg-orange-500 rounded-md px-4 py-2 text-white"
                   >
-                   <i className="fas fa-plus-square "></i> Add Change 
+                    <i className="fas fa-plus-square "></i> Add Change
                   </button>
                 </div>
               </div>
