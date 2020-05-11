@@ -148,13 +148,16 @@ export function Parse() {
         <div className="w-full">
           <Navbar />
         </div>
-        <div className="w-full flex flex-wrap">
+        <div>
+          
+        </div>
+        <div className="w-full h-full flex flex-wrap">
           <div className="w-2/5">
             <LeftPanel />
           </div>
           <div className="w-3/5  bg-gray-100">
             <div className="justify-center">
-              <div className="mt-20 mb-4">{err ? <ErrFlash /> : null}</div>
+              <div className="mt-32 mb-4">{err ? <ErrFlash /> : null}</div>
               <Formik
                 initialValues={{
                   file: {}
@@ -163,13 +166,13 @@ export function Parse() {
                 onSubmit={handleSubmit}
               >
                 {({ errors, touched, setFieldValue }) => (
-                  <Form className="rounded-b-full shadow-lg bg-white pb-8 mx-auto sm:mt-20 mb-30 max-md w-2/5">
+                  <Form className="rounded-b-lg shadow-lg bg-white pb-8 mx-auto sm:mt-20 mb-30 max-md w-2/5">
                     <div className="bg-orange-500  p-5">
                       <div className="text-white sm:text-xl uppercase text-center  font-bold">
                         The Magic Happens here!
                       </div>
                     </div>
-                    <div className="px-12 sm:px-6 py-2 my-6">
+                    <div className="px-12 sm:px-10 py-2 my-6">
                       <div className="border-dashed focus:outline-none h-20 border-orange-300 border-2 mt-12 ">
                         <div
                           className="focus:outline-none"
