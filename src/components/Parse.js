@@ -105,40 +105,40 @@ export function Parse() {
 
   if (submitted) {
     return (
-      <div className="App h-full">
+      <div className="App h-screen">
         <div className="w-full">
           <Navbar />
         </div>
-        <div className="w-full flex flex-wrap">
-          <div className="bg-gray-300 w-1/2 ">
-            <LeftPanel />
-          </div>
-          <div className="w-1/2 bg-gray-100 justify-center">
-            <div className="bg-white mx-auto w-1/2 mt-20 shadow-lg rounded-b-lg">
-              <div className="bg-orange-500  p-5">
-                <div className="text-white text-center capitalize font-bold text-2xl">
-                  Voila! Parsing Done...
-                </div>
-              </div>
-              <div className="mx-10 py-24 rounded-b-full">
-                <div
-                  onClick={downloadFile}
-                  className="border-dashed  border-2 items-center justify-center border-orange-300 py-8 px-3"
-                >
-                  <div className="items-center flex justify-center text-orange-500">
-                    <CloudDownloadIcon
-                      className="mx-auto "
-                      color="inherit"
-                      fontSize="large"
-                    />
+        <div className="w-full flex flex-wrap ">
+            <div className="bg-gray-300 w-1/2 h-screen">
+              <LeftPanel />
+            </div>
+            <div className="w-1/2 bg-gray-100 justify-center h-screen">
+              <div className="bg-white mx-auto w-2/5 mt-20 shadow-lg rounded-b-lg">
+                <div className="bg-orange-500  p-5 mt-20">
+                  <div className="text-white text-center capitalize font-bold text-2xl">
+                    Voila! Parsing Done...
                   </div>
-                  <p className="text-center text-xs text-purple-600">
-                    {response}
-                  </p>
+                </div>
+                <div className="mx-10 py-24 rounded-b-full">
+                  <div
+                    onClick={downloadFile}
+                    className="border-dashed  border-2 items-center justify-center border-orange-300 py-8 px-3"
+                  >
+                    <div className="items-center flex justify-center text-orange-500">
+                      <CloudDownloadIcon
+                        className="mx-auto "
+                        color="inherit"
+                        fontSize="large"
+                      />
+                    </div>
+                    <p className="text-center text-xs text-purple-600">
+                      {response}
+                    </p>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
         </div>
       </div>
     );
@@ -152,10 +152,10 @@ export function Parse() {
           
         </div>
         <div className="w-full h-full flex flex-wrap">
-          <div className="w-2/5">
+          <div className="w-1/2">
             <LeftPanel />
           </div>
-          <div className="w-3/5  bg-gray-100">
+          <div className="w-1/2  bg-gray-100">
             <div className="justify-center">
               <div className="mt-32 mb-4">{err ? <ErrFlash /> : null}</div>
               <Formik
