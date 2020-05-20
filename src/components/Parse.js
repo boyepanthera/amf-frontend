@@ -92,6 +92,10 @@ export function Parse() {
     </div>
   );
 
+  const resetSubmit = () => {
+    setSubmit(false);
+  }
+
   const downloadFile = async event => {
     try {
       const filename = event.target.innerText;
@@ -105,17 +109,17 @@ export function Parse() {
 
   if (submitted) {
     return (
-      <div className="App h-full">
+      <div className="App h-screen">
         <div className="w-full">
           <Navbar />
         </div>
-        <div className="w-full flex flex-wrap">
-          <div className="bg-gray-300 w-1/2 ">
+        <div className="w-full flex flex-wrap ">
+          <div className="bg-gray-300 w-1/2 h-screen">
             <LeftPanel />
           </div>
-          <div className="w-1/2 bg-gray-100 justify-center">
-            <div className="bg-white mx-auto w-1/2 mt-20 shadow-lg rounded-b-lg">
-              <div className="bg-orange-500  p-5">
+          <div className="w-1/2 bg-gray-100 justify-center h-screen">
+            <div className="bg-white mx-auto w-2/5 mt-20 shadow-lg rounded-b-lg">
+              <div className="bg-orange-500  p-5 mt-20">
                 <div className="text-white text-center capitalize font-bold text-2xl">
                   Voila! Parsing Done...
                 </div>
@@ -133,8 +137,16 @@ export function Parse() {
                     />
                   </div>
                   <p className="text-center text-xs text-purple-600">
-                    {response}
+                    {"Download " + response}
                   </p>
+                </div>
+                <div className="flex content-center pt-8 ">
+                  <button
+                    onClick={resetSubmit}
+                    className="text-center mx-auto bg-orange-500 text-white font-semibold px-4 w-full py-2 rounded-full"
+                  >
+                    <i className="fas fa-history text-white"></i> Want to parse again?
+                  </button>
                 </div>
               </div>
             </div>
@@ -152,10 +164,10 @@ export function Parse() {
           
         </div>
         <div className="w-full h-full flex flex-wrap">
-          <div className="w-2/5">
+          <div className="w-1/2">
             <LeftPanel />
           </div>
-          <div className="w-3/5  bg-gray-100">
+          <div className="w-1/2  bg-gray-100">
             <div className="justify-center">
               <div className="mt-32 mb-4">{err ? <ErrFlash /> : null}</div>
               <Formik
@@ -207,7 +219,7 @@ export function Parse() {
                       <div className="mt-12 justify-center flex h-10">
                         <button
                           type="submit"
-                          className="w-3/4 sm:text-xs uppercase font-bold bg-orange-500 mx-8 rounded-full hover:bg-orange-300 focus:outline-none shadow-2xl text-white"
+                          className="w-full sm:text-xs uppercase font-bold bg-orange-500 mx-8 rounded-full hover:bg-orange-300 focus:outline-none shadow-2xl text-white"
                         >
                           {loading ? <Loader /> : "Parse AMF"}
                         </button>
