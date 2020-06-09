@@ -54,7 +54,8 @@ export const Dashboard = () => {
   const handleDelete = async event => {
     try {
       event.persist();
-      let res = await axios.delete(`http://localhost:5003/api/v1/change/${event.target.id}`, { headers: { Accept: "application/json" } });
+      let res = await axios.delete(`http://localhost:5003/api/v1/change/${event.target.id}`,
+        { headers: { Accept: "application/json" } });
       setSuccess(res.data.message);
       setLedgers(ledgers.filter(ledger =>
         ledger._id !== parseInt(event.target.id)));
