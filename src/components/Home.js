@@ -8,46 +8,46 @@ const calc = (x, y) => [-(y - window.innerHeight / 2) / 20, (x - window.innerWid
 const trans = (x, y, s) => `perspective(600px) rotateX(${x}deg) rotateY(${y}deg) scale(${s})`
 
 export const Home = () => {
-    const [props, set] = useSpring(() => ({ xys: [0, 0, 1], config: { mass: 5, tension: 400, friction: 400 } }));
-    const user = JSON.parse(localStorage.getItem("user"));
-    return (
-      <div className="bg-gray-100 h-screen">
-        <Navbar />
-        <div>
-          <animated.div
-            onMouseMove={({ clientX: x, clientY: y }) =>
-              set({ xys: calc(x, y) })
-            }
-            onMouseLeave={() => set({ xys: [0, 0, 1] })}
-            style={{ transform: props.xys.interpolate(trans) }}
-          >
-            <img
-              alt="Welcome message"
-              className="mx-auto mt-40"
-              height={400}
-              width={400}
-              src={Welcome}
-            />
-          </animated.div>
-          <div className="flex-row justify-center">
-            {user ? (
-              <>
-                <div className="text-center text-3xl font-bold">
-                  You are logged in already!
+  const [props, set] = useSpring(() => ({ xys: [0, 0, 1], config: { mass: 5, tension: 400, friction: 400 } }));
+  const user = JSON.parse(localStorage.getItem("user"));
+  return (
+    <div className="bg-gray-100 h-screen">
+      <Navbar />
+      <div>
+        <animated.div
+          onMouseMove={({ clientX: x, clientY: y }) =>
+            set({ xys: calc(x, y) })
+          }
+          onMouseLeave={() => set({ xys: [0, 0, 1] })}
+          style={{ transform: props.xys.interpolate(trans) }}
+        >
+          <img
+            alt="Welcome message"
+            className="mx-auto mt-40"
+            height={400}
+            width={400}
+            src={Welcome}
+          />
+        </animated.div>
+        <div className="flex-row justify-center">
+          {user ? (
+            <>
+              <div className="text-center text-3xl font-bold">
+                You are logged in already!
                 </div>
-                <div className="text-center">
-                  <i className="fas fa-angle-double-down text-orange-500 text-4xl"></i>
-                </div>
-                <div className="text-center my-6">
-                  <Link
-                    to="/parse"
-                    className="border-orange-500 my-2  border mx-auto text-orange-500 py-2 px-8 hover:bg-orange-500 hover:text-white w-12 rounded-md"
-                  >
-                    Go to Parser
+              <div className="text-center">
+                <i className="fas fa-angle-double-down text-orange-500 text-4xl"></i>
+              </div>
+              <div className="text-center my-6">
+                <Link
+                  to="/parse"
+                  className="border-orange-500 my-2  border mx-auto text-orange-500 py-2 px-8 hover:bg-orange-500 hover:text-white w-12 rounded-md"
+                >
+                  Go to Parser
                   </Link>
-                </div>
-              </>
-            ) : (
+              </div>
+            </>
+          ) : (
               <>
                 <div className="text-center text-3xl font-bold">
                   We have been waiting for you!
@@ -65,8 +65,8 @@ export const Home = () => {
                 </div>
               </>
             )}
-          </div>
         </div>
       </div>
-    );
+    </div>
+  );
 }

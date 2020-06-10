@@ -4,11 +4,11 @@ import { AuthContext } from "../../App";
 
 export const Navbar = () => {
   let history = useHistory();
-  const [open, setOpen]= useState(false);
+  const [open, setOpen] = useState(false);
   const { dispatch } = useContext(AuthContext);
-  const user  = JSON.parse(localStorage.getItem('user'));
-  const handleToggle= ()=> {
-    setOpen(!open) 
+  const user = JSON.parse(localStorage.getItem('user'));
+  const handleToggle = () => {
+    setOpen(!open)
   }
   const handleLogout = () => {
     dispatch({ type: "LOGOUT" });
@@ -25,7 +25,7 @@ export const Navbar = () => {
             AMF Parser
           </Link>
         </div>
-        <div className="inline lg:hidden"  onClick={handleToggle} >
+        <div className="inline lg:hidden" onClick={handleToggle} >
           <button className="flex items-center px-3 py-2 border rounded text-teal-200 border-orange-400 hover:text-white hover:border-white">
             <svg
               className="fill-current h-3 w-3"
@@ -39,11 +39,11 @@ export const Navbar = () => {
         </div>
       </div>
 
-      <div  className={`w-full block flex-grow lg:flex lg:items-center lg:w-auto  sm:ml-auto   ${open? 'block' : 'hidden'}`}>
+      <div className={`w-full block flex-grow lg:flex lg:items-center lg:w-auto  sm:ml-auto   ${open ? 'block' : 'hidden'}`}>
         <div className="text-sm justify-end flex mr-8 lg:flex-grow">
           {user ? (
             <>
-              <div  className="mt-1">
+              <div className="mt-1">
                 <Link
                   to="/parse"
                   className="block mt-4 lg:inline-block lg:mt-0 text-white hover:text-white mr-4"
@@ -56,10 +56,10 @@ export const Navbar = () => {
                 >
                   Dashboard
                 </Link>
-                <span className="block mt-4 lg:inline-block lg:mt-0 text-white hover:text-white mr-4">
+                <Link to="/user/dashboard" className="block mt-4 lg:inline-block lg:mt-0 text-white hover:text-white mr-4">
                   <i className="fas fa-user text-white"></i> LoggedIn as{" "}
                   {user.firstName}
-                </span>
+                </Link>
               </div>
               <button
                 onClick={handleLogout}
@@ -69,21 +69,21 @@ export const Navbar = () => {
               </button>
             </>
           ) : (
-            <>
-              <Link
-                to="/auth"
-                className="block mt-4 lg:inline-block lg:mt-0 text-white hover:text-white mr-4"
-              >
-                Login
+              <>
+                <Link
+                  to="/auth"
+                  className="block mt-4 lg:inline-block lg:mt-0 text-white hover:text-white mr-4"
+                >
+                  Login
               </Link>
-              <Link
-                to="/newauth"
-                className="block mt-4 lg:inline-block lg:mt-0 text-white hover:text-white mr-4"
-              >
-                Signup
+                <Link
+                  to="/newauth"
+                  className="block mt-4 lg:inline-block lg:mt-0 text-white hover:text-white mr-4"
+                >
+                  Signup
               </Link>
-            </>
-          )}
+              </>
+            )}
         </div>
       </div>
     </nav>
