@@ -156,18 +156,15 @@ export function Parse() {
     );
   } else {
     return (
-      <div className="App  h-screen">
+      <div className="App  min-h-screen h-full ">
         <div className="w-full">
           <Navbar />
         </div>
-        <div>
-          
-        </div>
         <div className="w-full h-full flex flex-wrap">
-          <div className="w-1/2">
+          <div className="sm:w-1/2 w-full">
             <LeftPanel />
           </div>
-          <div className="w-1/2  bg-gray-100">
+          <div className="sm:w-1/2 w-full  bg-gray-100">
             <div className="justify-center">
               <div className="mt-32 mb-4">{err ? <ErrFlash /> : null}</div>
               <Formik
@@ -178,7 +175,7 @@ export function Parse() {
                 onSubmit={handleSubmit}
               >
                 {({ errors, touched, setFieldValue }) => (
-                  <Form className="rounded-b-lg shadow-lg bg-white pb-8 mx-auto sm:mt-20 mb-30 max-md w-2/5">
+                  <Form className="rounded-b-lg shadow-lg bg-white pb-8 mx-auto sm:mt-20 mb-30 max-md sm:w-1/2 w-4/5">
                     <div className="bg-orange-500  p-5">
                       <div className="text-white sm:text-xl uppercase text-center  font-bold">
                         The Magic Happens here!
