@@ -121,7 +121,7 @@ export function Parse() {
             <div className="bg-white mx-auto w-1/2 mt-20 shadow-lg rounded-b-lg">
               <div className="bg-orange-500  p-5 mt-20">
                 <div className="text-white text-center capitalize font-bold text-xl">
-                  Done!... Click marked area to download.
+                  Done!... <div className='text-sm'>Click marked area to download.</div>
                 </div>
               </div>
               <div className="mx-10 pt-12 pb-24 rounded-b-full">
