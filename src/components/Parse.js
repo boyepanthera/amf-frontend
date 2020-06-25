@@ -156,7 +156,7 @@ export function Parse() {
     );
   } else {
     return (
-      <div className="App  min-h-screen h-full ">
+      <div className="min-h-screen h-full ">
         <div className="w-full">
           <Navbar />
         </div>

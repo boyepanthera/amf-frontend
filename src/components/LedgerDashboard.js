@@ -4,7 +4,7 @@ import { Formik, Form, Field } from "formik";
 import * as Yup from "yup";
 import axios from "axios";
 
-export const Dashboard = () => {
+export const LedgerDashboard = () => {
   let [ledgers, setLedgers] = useState([]);
   let [err, setErr] = useState(null);
   let [success, setSuccess] = useState(null);

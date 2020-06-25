@@ -6,8 +6,9 @@ import { Signup } from "./components/Signup";
 import { Protector } from "./components/Protector";
 import { Home } from "./components/Home";
 import { Switch, Route } from "react-router-dom";
-import { Dashboard } from "./components/Dashboard";
+import { LedgerDashboard } from "./components/LedgerDashboard";
 import { Test } from "./components/Test";
+import { UserDashboard } from "./components/UserDashboard";
 import "./assets/output.css";
 export const AuthContext = createContext();
 
@@ -66,7 +67,8 @@ export const App = () => {
       <Switch>
         <Route path="/" exact component={Home} />
         <Protector path="/parse" exact component={Parse} />
-        <Protector path="/dashboard" exact component={Dashboard} />
+        <Protector path="/dashboard" exact component={LedgerDashboard} />
+        <Protector path="/user/dashboard" exact component={UserDashboard} />
         <Protector path="/test" exact component={Test} />
         <Route path="/auth" exact component={Login} />
         <Route path="/newauth" exact component={Signup} />
