@@ -22,7 +22,7 @@ export const Navbar = () => {
             to="/"
             className="inline-block text-sm px-4 py-2 leading-none border rounded text-white border-white hover:border-transparent hover:text-orange-500 hover:bg-white lg:mt-0"
           >
-            AMF Parser
+            Finstat
           </Link>
         </div>
         <div className="inline lg:hidden" onClick={handleToggle} >
