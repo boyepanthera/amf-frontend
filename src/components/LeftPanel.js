@@ -9,7 +9,7 @@ export const LeftPanel = () => {
           <img className=' ' height={700} width={700} src={Uploading} alt='Explainer Standing with Direction for app use' />
         </div>
         <div className='text-xl sm:text-2xl md:text-3xl text-center font-bold text-orange-700 '>In One Click.</div>
-        <div className='text-orange-600 text-center mx-5 mb-32 font-bold text-sm'>Attach your AMF and get it parsed for you.</div>
+        <div className='text-orange-600 text-center mx-5 mb-32 font-bold text-sm'>From AMF to Finstat.</div>
       </div>
     </div>
   )

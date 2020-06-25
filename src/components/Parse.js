@@ -118,13 +118,14 @@ export function Parse() {
             <LeftPanel />
           </div>
           <div className="w-1/2 bg-gray-100 justify-center h-screen">
-            <div className="bg-white mx-auto w-2/5 mt-20 shadow-lg rounded-b-lg">
+            <div className="bg-white mx-auto w-1/2 mt-20 shadow-lg rounded-b-lg">
               <div className="bg-orange-500  p-5 mt-20">
-                <div className="text-white text-center capitalize font-bold text-2xl">
-                  Voila! Parsing Done...
+                <div className="text-white text-center capitalize font-bold text-xl">
+                  Done!... Click marked area to download.
                 </div>
               </div>
-              <div className="mx-10 py-24 rounded-b-full">
+              <div className="mx-10 pt-12 pb-24 rounded-b-full">
+
                 <div
                   onClick={downloadFile}
                   className="border-dashed  border-2 items-center justify-center border-orange-300 py-8 px-3"
@@ -137,7 +138,7 @@ export function Parse() {
                     />
                   </div>
                   <p className="text-center text-xs text-purple-600">
-                    {"Download " + response}
+                    {response}
                   </p>
                 </div>
                 <div className="flex content-center pt-8 ">
