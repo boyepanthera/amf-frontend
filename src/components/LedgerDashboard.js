@@ -25,10 +25,11 @@ export const LedgerDashboard = () => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:5003/api/v1/change", {
+      .get("http://localhost:5003/api/v1/ledgers/change", {
         headers: { Accept: "application/json" }
       })
       .then(response => {
+        console.log(response)
         setLedgers(response.data.ledgers);
       })
       .catch(err => {
@@ -39,7 +40,7 @@ export const LedgerDashboard = () => {
   const handleSubmit = async (values, { resetForm }) => {
     try {
       let res = await axios.post(
-        "http://localhost:5003/api/v1/change",
+        "http://localhost:5003/api/v1/ledgers/change",
         values,
         { headers: { Accept: "application/json" } }
       );
@@ -54,7 +55,7 @@ export const LedgerDashboard = () => {
   const handleDelete = async event => {
     try {
       event.persist();
-      let res = await axios.delete(`http://localhost:5003/api/v1/change/${event.target.id}`,
+      let res = await axios.delete(`http://localhost:5003/api/v1/ledgers/change/${event.target.id}`,
         { headers: { Accept: "application/json" } });
       setSuccess(res.data.message);
       setLedgers(ledgers.filter(ledger =>
@@ -76,12 +77,12 @@ export const LedgerDashboard = () => {
       <Navbar />
       <div className="w-4/5 mx-auto">
         {err ? (
-          <div className="text-red-500 text-center text-xs border border-red-200 bg-red-100 mt-6 py-1 rounded rounded-sm">
+          <div className="text-red-500 text-center text-xs border border-red-200 bg-red-100 mt-6 py-1 rounded-sm">
             {err}
           </div>
         ) : null}
         {success ? (
-          <div className="text-blue-500 text-center text-xs border border-blue-200 bg-blue-100 mt-6 py-1 rounded rounded-sm">
+          <div className="text-blue-500 text-center text-xs border border-blue-200 bg-blue-100 mt-6 py-1 rounded-sm">
             {success}
           </div>
         ) : null}
@@ -170,7 +171,7 @@ export const LedgerDashboard = () => {
                     name="oldCode"
                     type="text"
                     placeholder="e.g. 4690"
-                    className="h-10 w-full rounded border leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                    className="h-10 px-2 w-full rounded border leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                   />
                   {errors.oldCode && touched.oldCode ? (
                     <div className="text-red-300">{errors.oldCode}</div>
@@ -184,7 +185,7 @@ export const LedgerDashboard = () => {
                     type="text"
                     name="glName"
                     placeholder="e.g. IMTOs"
-                    className="h-10 w-full rounded border leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                    className="h-10 px-2 w-full rounded border leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                   />
                   {errors.glName && touched.glName ? (
                     <div className="text-red-300">{errors.glName}</div>
@@ -198,7 +199,7 @@ export const LedgerDashboard = () => {
                     type="text"
                     name="finalCode"
                     placeholder="e.g. 0600"
-                    className="h-10 w-full rounded border leading-tight focus:outline-none focus:bg-white focus:border-gray-500 "
+                    className="h-10 px-2 w-full rounded border leading-tight focus:outline-none focus:bg-white focus:border-gray-500 "
                   />
                   {errors.finalCode && touched.finalCode ? (
                     <div className="text-red-300">{errors.finalCode}</div>
