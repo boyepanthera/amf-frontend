@@ -29,7 +29,7 @@ export const LedgerDashboard = () => {
         headers: { Accept: "application/json" }
       })
       .then(response => {
-        console.log(response)
+        // console.log(response)
         setLedgers(response.data.ledgers);
       })
       .catch(err => {
@@ -47,7 +47,7 @@ export const LedgerDashboard = () => {
       setLedgers(res.data.ledgers);
       resetForm();
     } catch (err) {
-      console.log(err);
+      // console.log(err);
       setErr(err.message);
     }
   };
