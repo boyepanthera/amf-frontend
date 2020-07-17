@@ -42,21 +42,21 @@ export function Parse() {
     data.append("email", email);
     data.append("file", file);
     axios
-      .post("http://localhost:5003/api/v1/amf/parse", data, {
-        headers: { Accept: "multipart/form-data" }
+      .post("http://localhost:5003/api/v1/ledgers/amf/parse", data, {
+        headers: { Accept: "multipart/form-data" },
       })
-      .then(response => {
+      .then((response) => {
         // console.log(response);
         setSubmit(true);
         setResponse(response.data.downloadPath);
       })
-      .catch(err => {
+      .catch((err) => {
         if (err.response) {
           setErr(err.response.data);
           setLoading(false);
           setTimeout(() => setErr(false), 5000);
         } else {
-          setErr('Unable to connect to API server!');
+          setErr("Unable to connect to API server!");
           setTimeout(() => setErr(false), 5000);
         }
       });
